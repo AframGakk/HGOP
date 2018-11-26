@@ -1,14 +1,1 @@
-villi
-User: villitDistro:
-User: villi, Distro: uname
-User: villi, Distro: Darwin
-26/11/2018 10:52:07 - User: villi, Distro: Darwin
-[26/11/2018 10:53:01] : villi - Distro: Darwin
-[26/11/2018 10:55:33] : villi - Distro: Darwin, Git:
-[26/11/2018 10:56:02] : villi - Distro: Darwin, Git:
-[26/11/2018 10:57:10] : villi - Distro: Darwin, Git:
-[26/11/2018 10:58:18] : villi - Distro: Darwin, Git: Not Installed
-[26/11/2018 10:59:12] : villi - Distro: Darwin, Git: Not Installed
-[26/11/2018 11:00:46] : villi - Distro: Darwin, Git: Not Installed
-[26/11/2018 11:01:23] : villi - Distro: Darwin, Git: git version 2.19.0
 [26/11/2018 11:02:35] : villi - Distro: Darwin, Git: git version 2.19.0, NPM: 6.4.1, NodeJS: v10.11.0

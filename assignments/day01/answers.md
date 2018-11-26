@@ -5,4 +5,4 @@ Linux is a family of free and open-source operating systems. Normally a linux di
 
 ## Why use Linux? What are the pros and cons?  
 You would use Linux if you want an open source and free OS, more speed, more privacy, better stability, security, better terminal.    
-Cons of using Linux are, it isn´t as user friendly as Windows or OSx "straight out of the box", proprietary apps for Apple or Windows generally     dont work, if you´re an gamer you will orefer Windows as most games aren´t available.
+Cons of using Linux are, it isn´t as user friendly as Windows or OSx "straight out of the box", proprietary apps for Apple or Windows generally     dont work, if you´re an gamer you will prefer Windows as most games aren´t available.

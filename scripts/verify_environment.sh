@@ -40,8 +40,17 @@ else
     echo NodeJS found at version: $nodePresent;
 fi
 
+# Check for AWS Cli
+awsPresent="Not Installed"
+if ! type aws > /dev/null; then
+  echo AWSCli not found, please install
+else
+    awsPresent=$(aws --version)
+    echo AWSCli found at version: $awsPresent;
+fi
+
 # Logging at end
-echo [$(date '+%d/%m/%Y %H:%M:%S')] : $USER - Distro: $(uname), Git: $gitPresent, NPM: $npmPresent, NodeJS: $nodePresent >> ./logs.log 2>&1
+echo [$(date '+%d/%m/%Y %H:%M:%S')] : $USER - Distro: $(uname), Git: $gitPresent, NPM: $npmPresent, NodeJS: $nodePresent , AWSCli $awsPresent >> ./logs.log 2>&1
 
 # End date
 echo Info script ended at $(date '+%d/%m/%Y %H:%M:%S');

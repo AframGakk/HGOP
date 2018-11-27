@@ -1,7 +1,7 @@
 version: '3'
 services:
   my_item_repository:
-    image: ivarkristinn/hgop:part2
+    image: villirn/hgop:part1
     ports:
     - '3000:3000'
     depends_on:

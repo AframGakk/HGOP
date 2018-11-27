@@ -1,0 +1,18 @@
+version: '3'
+services:
+  my_item_repository:
+    image: username/repo:tag
+    ports:
+    - '3000:3000'
+    depends_on:
+    - my_postgres_container
+    environment:
+      POSTGRES_DB: 'my_postgres_database'
+      POSTGRES_USER: 'my_postgres_user'
+      POSTGRES_PASSWORD: 'my_postgres_password'
+  my_postgres_container:
+    image: postgres
+    environment:
+      POSTGRES_DB: 'my_postgres_database'
+      POSTGRES_USER: 'my_postgres_user'
+      POSTGRES_PASSWORD: 'my_postgres_password'

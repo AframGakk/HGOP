@@ -24,14 +24,18 @@ module.exports = {
                 rowMode: 'array'
             }
             client.query(query, (err, res) => {
-                onGet(res.rows.map(row => {
-                    return {
-                        id: row[0],
-                        name: row[1],
-                        insertdate: row[2]
-                    }
-                }));
-                client.end();
+                if(err) {
+                    console.log(err);
+                } else {
+                    onGet(res.rows.map(row => {
+                        return {
+                            id: row[0],
+                            name: row[1],
+                            insertdate: row[2]
+                        }
+                    }));
+                    client.end();
+                }
             });
         });
         return;

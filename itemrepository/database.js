@@ -47,7 +47,7 @@ function getClient() {
     });
 }
 
-# give the database a few seconds to setup before we connect to it.
+// give the database a few seconds to setup before we connect to it.
 setTimeout(() => {
     var client = getClient();
     client.connect((err) => {

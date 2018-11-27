@@ -18,4 +18,18 @@ An API (Application programming interface) is a set of functions and procedures 
 ## Postgres
 Postgres is an open-source object-relational database system. Postgres uses SQL query language combined with other features to safely store objects and oject mappings in a database.
 
-##  
+## package.json file dependencies field:
+Holds information about NPM modules(libs) that the application is using.
+
+## NPM express package:
+Express is minimal and flexible Node.js web app framework, that provide a robust set of features to develop web and mobile apps. 
+
+## NPM pg package:
+Non-blocking PostgresSQL client for Node.js.
+
+## What is docker-compose:
+Docker-compose is a tool for defining and running multiple container Docker applications.
+
+## Results
+Got to know docker, to create, deploy and run applications inside containers instead of VMs. 
+To deploy images to docker cloud, to tag an images and publish them to the cloud. Define multiple services as containers with docker-compose inside configuration yaml file and building and running all services.

@@ -2,3 +2,4 @@ scripts/logs.log
 .terraform
 terraform.tfstate
 .terraform.tfstate.lock.info
+node_modules/

@@ -3,5 +3,4 @@ scripts/logs.log
 terraform.*
 .terraform.*
 node_modules/
-terraform.tfsate
-./*.tfstate
+*.tfstate

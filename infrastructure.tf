@@ -1,10 +1,13 @@
-# TODO Comment 2-3 sentences.
+# information on the service where the instance is set up. The provider info needs to hold the
+# credential key generated for each user.
 provider "aws" {
   shared_credentials_file = "~/.aws/credentials"
   region                  = "us-east-1"
 }
 
-# TODO Comment 2-3 sentences.
+# holds information about a new provider security group. Provider security group controls which
+# ports are open on an instance and which protocol is used to communicate to the port. Ingress values are
+# rules for the security group where a rule can open up a port with specific communication style.
 resource "aws_security_group" "game_security_group" {
   name   = "GameSecurityGroup"
 
@@ -30,7 +33,8 @@ resource "aws_security_group" "game_security_group" {
   }
 }
 
-# TODO Comment 2-3 sentences.
+# Information about the new instance to be created on the providor. This names the instance, sets which type of instance
+# (in this case Ubuntu t2.micro) and the security info (security group, key to be used).
 resource "aws_instance" "game_server" {
   ami                    = "ami-0ac019f4fcb7cb7e6"
   instance_type          = "t2.micro"
@@ -39,7 +43,7 @@ resource "aws_instance" "game_server" {
   tags {
     Name = "GameServer"
   }
-  # TODO Comment 1-2 sentences.
+  # Copies the docker init file to the new instance via ssh with KeyPair authentication.
   provisioner "file" {
     source      = "scripts/initialize_game_api_instance.sh"
     destination = "/home/ubuntu/initialize_game_api_instance.sh"
@@ -50,7 +54,7 @@ resource "aws_instance" "game_server" {
       private_key = "${file("~/.aws/GameKeyPair.pem")}"
     }
   }
-  # TODO Comment 1-2 sentences.
+  # Copies the docker-compose yaml file to the new instance via SSH.
   provisioner "file" {
     source      = "docker-compose.yml"
     destination = "/home/ubuntu/docker-compose.yml"
@@ -66,7 +70,9 @@ resource "aws_instance" "game_server" {
   # Since it can take time for the SSH agent on machine to start up we let Terraform
   # handle the retry logic, it will try to connect to the agent until it is available
   # that way we know the instance is available through SSH after Terraform finishes.
-  # TODO Comment 1-2 sentences.
+  #
+  # connects to the new instance and executes a remote command to make
+  # initialize_game_api_instance.sh executable
   provisioner "remote-exec" {
     inline = [
       "chmod +x /home/ubuntu/initialize_game_api_instance.sh",
@@ -80,7 +86,8 @@ resource "aws_instance" "game_server" {
   }
 }
 
-# TODO Comment 1-2 sentences.
+# Creates output variable for Terraform. In this case the public_ip variable
+# gets the ip value of the new instance
 output "public_ip" {
   value = "${aws_instance.game_server.public_ip}"
 }

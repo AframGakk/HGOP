@@ -1,6 +1,5 @@
 scripts/logs.log
 .terraform
-terraform.tfstate
-.terraform.tfstate.lock.info
-terraform.tfstate.backup
+terraform.*
+.terraform.*
 node_modules/

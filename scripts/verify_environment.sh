@@ -49,8 +49,17 @@ else
     echo AWSCli found at version: $awsPresent;
 fi
 
+# Check for Terraform
+terraformPresent="Not Installed"
+if ! type terraform > /dev/null; then
+  echo Terraform not found, please install
+else
+    terraformPresent=$(terraform --version)
+    echo Terraform found at version: $terraformPresent;
+fi
+
 # Logging at end
-echo [$(date '+%d/%m/%Y %H:%M:%S')] : $USER - Distro: $(uname), Git: $gitPresent, NPM: $npmPresent, NodeJS: $nodePresent , AWSCli $awsPresent >> ./logs.log 2>&1
+echo [$(date '+%d/%m/%Y %H:%M:%S')] : $USER - Distro: $(uname), Git: $gitPresent, NPM: $npmPresent, NodeJS: $nodePresent , AWSCli $awsPresent, Terraform $terraformPresent >> ./logs.log 2>&1
 
 # End date
 echo Info script ended at $(date '+%d/%m/%Y %H:%M:%S');

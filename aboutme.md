@@ -1,6 +1,6 @@
 # About us
 1. Ívar Kristinn Hallsson  
-<img align="left" width="100" height="100" src="https://imgur.com/pKtMpFs"> 
+<img align="left" width="100" height="100" src="https://imgur.com/a/DbQ3VeA"> 
   * Where you grew up  
   I grew up in Reykjavík.  
   * education and employment history;  

@@ -5,7 +5,12 @@
 This is the first weeks assignment in HGOP.  
 
 ## To build  
- 
+git clone the project
+Navigate to the root directory, and from there execute ./scripts/verify_enviroment.sh.  
+Install dependancies from verify_enviroment.  
+Make an AWS account, link.
+AWS credential and where to put them.
+
 
 
 ## Team Members  

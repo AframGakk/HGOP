@@ -1,6 +1,6 @@
 # About us
 1. Ívar Kristinn Hallsson  
-![alt text](https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/10730922_710909445643967_2623924177230920088_n.jpg?_nc_cat=106&_nc_ht=scontent-arn2-1.xx&oh=4b1cbc37a15a19edbadcb7ebf814fa65&oe=5CAAD3A9 width="100" height="100" "Ibbi")
+![alt text](https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/10730922_710909445643967_2623924177230920088_n.jpg?_nc_cat=106&_nc_ht=scontent-arn2-1.xx&oh=4b1cbc37a15a19edbadcb7ebf814fa65&oe=5CAAD3A9 "Ibbi" width="100" height="100")
   * Where you grew up  
   I grew up in Reykjavík.  
   * education and employment history;  

@@ -14,7 +14,7 @@ uname -a
 echo Info script started at $(date '+%d/%m/%Y %H:%M:%S');
 
 # Check for git
-gitPresent="Not Installed"
+gitPresent="NOT INSTALLED"
 if ! type git > /dev/null; then
   echo Git not found, please install;
 else
@@ -23,7 +23,7 @@ else
 fi
 
 # Check for NPM
-npmPresent="Not Installed"
+npmPresent="NOT INSTALLED"
 if ! type npm > /dev/null; then
   echo NPM not found, please install
 else
@@ -32,7 +32,7 @@ else
 fi
 
 # Check for NodeJS
-nodePresent="Not Installed"
+nodePresent="NOT INSTALLED"
 if ! type node > /dev/null; then
   echo NodeJS not found, please install
 else
@@ -41,7 +41,7 @@ else
 fi
 
 # Check for AWS Cli
-awsPresent="Not Installed"
+awsPresent="NOT INSTALLED"
 if ! type aws > /dev/null; then
   echo AWSCli not found, please install
 else
@@ -50,7 +50,7 @@ else
 fi
 
 # Check for Terraform
-terraformPresent="Not Installed"
+terraformPresent="NOT INSTALLED"
 if ! type terraform > /dev/null; then
   echo Terraform not found, please install
 else
@@ -58,8 +58,24 @@ else
     echo Terraform found at version: $terraformPresent;
 fi
 
+# Check for Docker
+dockerPresent="NOT INSTALLED"
+if ! type terraform > /dev/null; then
+  echo Docker not found, please install
+else
+    dockerPresent=$(docker -v)
+    echo Docker found at version: $dockerPresent;
+fi
+
 # Logging at end
-echo [$(date '+%d/%m/%Y %H:%M:%S')] : $USER - Distro: $(uname), Git: $gitPresent, NPM: $npmPresent, NodeJS: $nodePresent , AWSCli $awsPresent, Terraform $terraformPresent >> ./logs.log 2>&1
+echo [$(date '+%d/%m/%Y %H:%M:%S')] : $USER - Distro: $(uname) >> ./logs.log 2>&1
+echo Git: $gitPresent >> ./logs.log 2>&1
+echo NPM: $npmPresent >> ./logs.log 2>&1
+echo NodeJS: $nodePresent >> ./logs.log 2>&1
+echo AWSCli: $awsPresent >> ./logs.log 2>&1
+echo Terraform: $terraformPresent >> ./logs.log 2>&1
+echo Docker: $dockerPresent >> ./logs.log 2>&1
+echo "" >> ./logs.log 2>&1
 
 # End date
 echo Info script ended at $(date '+%d/%m/%Y %H:%M:%S');

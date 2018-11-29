@@ -20,3 +20,6 @@ Vilhjálmur Rúnar Vilhjálmsson: vilhjalmur12@ru.is
 
 ## Verify that the API is running  
 curl $(terraform output public_ip):3000/status  
+
+## TODO  
+Write about the extra things we have here.

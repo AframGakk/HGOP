@@ -3,78 +3,83 @@ if ! -f ./logs.log; then
     touch ./logs.log
 fi
 
+# the path of THIS script file
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+
 allInstalled=true
 
 # A welcome message
 echo Welcome to HGOP $USER
-echo These are some information about versions and distributions on your computer.
-
-# The distro and kernel information
-uname -a
 
 # Start date
 echo Info script started at $(date '+%d/%m/%Y %H:%M:%S');
 
+echo These are some information about versions and distributions on your computer.
+echo ""
+
+# The distro and kernel information
+echo "-- Operating System --"
+echo "Kernel Distro: " $(uname -s)
+echo "Kernel version: " $(uname -v)
+echo ""
+
 # Check for git
 gitPresent="NOT INSTALLED"
 if ! type git > /dev/null; then
-  echo Git not found, please install;
-  allInstalled=false
+    allInstalled=false
 else
     gitPresent=$(git --version)
-    echo Git found at version: $gitPresent;
 fi
+echo -e "Git Installation:\t\t"$gitPresent
 
 # Check for NPM
 npmPresent="NOT INSTALLED"
 if ! type npm > /dev/null; then
-  echo NPM not found, please install
-  allInstalled=false
+    allInstalled=false
 else
     npmPresent=$(npm --version)
-    echo NPM found at version: $npmPresent;
 fi
+echo -e "NPM Installation:\t\t"$npmPresent
 
 # Check for NodeJS
 nodePresent="NOT INSTALLED"
 if ! type node > /dev/null; then
-  echo NodeJS not found, please install
-  allInstalled=false
+    allInstalled=false
 else
     nodePresent=$(node --version)
-    echo NodeJS found at version: $nodePresent;
 fi
+echo -e "NodeJS Installation:\t\t"$nodePresent
 
 # Check for AWS Cli
 awsPresent="NOT INSTALLED"
 if ! type aws > /dev/null; then
-  echo AWSCli not found, please install
   allInstalled=false
 else
     awsPresent=$(aws --version)
-    echo AWSCli found at version: $awsPresent;
 fi
+echo -e "AWS Installation:\t\t"$awsPresent
 
 # Check for Terraform
 terraformPresent="NOT INSTALLED"
 if ! type terraform > /dev/null; then
-  echo Terraform not found, please install
+    allInstalled=false
 else
     terraformPresent=$(terraform --version)
-    echo Terraform found at version: $terraformPresent;
 fi
+echo -e "Terraform Installation:\t\t"$terraformPresent
 
 # Check for Docker
 dockerPresent="NOT INSTALLED"
 if ! type docker > /dev/null; then
-  echo Docker not found, please install
-  allInstalled=false
+    allInstalled=false
 else
     dockerPresent=$(docker -v)
-    echo Docker found at version: $dockerPresent;
 fi
+echo -e "Docker Installation:\t\t"$dockerPresent
 
+echo ""
+
+# If there are some dependancies missing then ask to install.
 if [ "$allInstalled" = false ]; then
     echo "There are some missing dependancies. Would you like to install them? (yes/no)"
     read installCond

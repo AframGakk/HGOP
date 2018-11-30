@@ -13,7 +13,7 @@
 
   * What do you expect to get out of this course?      
     I want to learn about good deployment process with big systems.
-
+## 
 <img src="resources/img/villi.jpeg" width="150" height="150"></img>
 ## Vilhjálmur Rúnar Vilhjálmsson   
 

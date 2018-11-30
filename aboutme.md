@@ -1,4 +1,6 @@
 # About us
+
+
 ## Ívar Kristinn Hallsson  
   * Where you grew up    
   I grew up in Reykjavík.    
@@ -10,7 +12,9 @@
   * What do you expect to get out of this course?;    
   xxxx  
 
-<img style="float:right;" src="resources/img/villi.jpeg" width="100" height="100">  
+<img src="resources/img/villi.jpeg" width="100" height="100">
+*villi*
+
 ## Vilhjálmur Rúnar Vilhjálmsson   
 
   * Where you grew up  

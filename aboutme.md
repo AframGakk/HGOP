@@ -12,7 +12,7 @@
   * What do you expect to get out of this course?;    
   xxxx  
 
-<img src="resources/img/villi.jpeg" width="150" height="150">
+<img src="resources/img/villi.jpeg" width="150" height="150"></img>
 villi
 
 ## Vilhjálmur Rúnar Vilhjálmsson   

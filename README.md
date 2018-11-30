@@ -18,8 +18,11 @@ Vilhjálmur Rúnar Vilhjálmsson: vilhjalmur12@ru.is
 6. Then you should be able to execute ./scripts/deploy.sh
 7. Url to instance curl $(terraform output public_ip):3000/status   
 
-## Verify that the remote API is running  
-curl $(terraform output public_ip):3000/status  
+## Week 1 solutions
 
-## TODO  
-Write about the extra things we have here.
+### The running API instance  
+To check the running instance enter in terminal:
+'curl 52.91.84.153:3000/status'
+
+### Extra things added
+We decided to structure the repository like if a new programmer would be joining us. Therefore in this readme document you can find the steps of building and setting up the environment. In extra of verifying the environment with a script we also made an extra script which will install all dependancies needed for the project for you. The install script can be run separately or if the verify_enviroment script is ran, the script asks whether you want to run the install script if it did not found some dependancy. Note that the install script is modified for both OSX (darwin) and Linux.

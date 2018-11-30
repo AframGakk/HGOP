@@ -3,6 +3,9 @@ if ! -f ./logs.log; then
     touch ./logs.log
 fi
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+allInstalled=true
+
 # A welcome message
 echo Welcome to HGOP $USER
 echo These are some information about versions and distributions on your computer.
@@ -17,6 +20,7 @@ echo Info script started at $(date '+%d/%m/%Y %H:%M:%S');
 gitPresent="NOT INSTALLED"
 if ! type git > /dev/null; then
   echo Git not found, please install;
+  allInstalled=false
 else
     gitPresent=$(git --version)
     echo Git found at version: $gitPresent;
@@ -26,6 +30,7 @@ fi
 npmPresent="NOT INSTALLED"
 if ! type npm > /dev/null; then
   echo NPM not found, please install
+  allInstalled=false
 else
     npmPresent=$(npm --version)
     echo NPM found at version: $npmPresent;
@@ -35,6 +40,7 @@ fi
 nodePresent="NOT INSTALLED"
 if ! type node > /dev/null; then
   echo NodeJS not found, please install
+  allInstalled=false
 else
     nodePresent=$(node --version)
     echo NodeJS found at version: $nodePresent;
@@ -44,6 +50,7 @@ fi
 awsPresent="NOT INSTALLED"
 if ! type aws > /dev/null; then
   echo AWSCli not found, please install
+  allInstalled=false
 else
     awsPresent=$(aws --version)
     echo AWSCli found at version: $awsPresent;
@@ -60,11 +67,21 @@ fi
 
 # Check for Docker
 dockerPresent="NOT INSTALLED"
-if ! type terraform > /dev/null; then
+if ! type docker > /dev/null; then
   echo Docker not found, please install
+  allInstalled=false
 else
     dockerPresent=$(docker -v)
     echo Docker found at version: $dockerPresent;
+fi
+
+if [ "$allInstalled" = false ]; then
+    echo "There are some missing dependancies. Would you like to install them? (yes/no)"
+    read installCond
+    if [ $installCond = yes ]; then
+        installFileDIR=$DIR"/install_Dependancies.sh"
+        $installFileDIR
+    fi
 fi
 
 # Logging at end

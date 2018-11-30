@@ -5,6 +5,7 @@ fi
 
 # the path of THIS script file
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+LOGFILE=$DIR/logs.log
 
 allInstalled=true
 
@@ -90,14 +91,14 @@ if [ "$allInstalled" = false ]; then
 fi
 
 # Logging at end
-echo [$(date '+%d/%m/%Y %H:%M:%S')] : $USER - Distro: $(uname) >> ./logs.log 2>&1
-echo Git: $gitPresent >> ./logs.log 2>&1
-echo NPM: $npmPresent >> ./logs.log 2>&1
-echo NodeJS: $nodePresent >> ./logs.log 2>&1
-echo AWSCli: $awsPresent >> ./logs.log 2>&1
-echo Terraform: $terraformPresent >> ./logs.log 2>&1
-echo Docker: $dockerPresent >> ./logs.log 2>&1
-echo "" >> ./logs.log 2>&1
+echo [$(date '+%d/%m/%Y %H:%M:%S')] : $USER - Distro: $(uname) >> $LOGFILE 2>&1
+echo Git: $gitPresent >> $LOGFILE 2>&1
+echo NPM: $npmPresent >> $LOGFILE 2>&1
+echo NodeJS: $nodePresent >> $LOGFILE 2>&1
+echo AWSCli: $awsPresent >> $LOGFILE 2>&1
+echo Terraform: $terraformPresent >> $LOGFILE 2>&1
+echo Docker: $dockerPresent >> $LOGFILE 2>&1
+echo "" >> $LOGFILE 2>&1
 
 # End date
 echo Info script ended at $(date '+%d/%m/%Y %H:%M:%S');

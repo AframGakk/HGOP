@@ -13,8 +13,6 @@
   xxxx  
 
 <img src="resources/img/villi.jpeg" width="150" height="150"></img>
-villi
-
 ## Vilhjálmur Rúnar Vilhjálmsson   
 
   * Where you grew up  

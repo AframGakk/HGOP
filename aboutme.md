@@ -10,7 +10,8 @@
   * What do you expect to get out of this course?;    
   xxxx  
 2. Vilhjálmur Rúnar Vilhjálmsson   
-![](resources/img/villi.jpeg = 250x250)
+<img src="resources/img/villi.jpeg" width="100" height="100">
+
   * Where you grew up  
     I grew up here and there but mainly in Seyðisfjörður which is a small town in the east of Iceland.
 

@@ -30,7 +30,6 @@ Vilhjálmur Rúnar Vilhjálmsson: vilhjalmur12@ru.is
         2. Create new Key pair called *GameKeyPair*
         3. Download the key pair file.
         4. Move the key pair file to the newly created credential folder ~/.aws/
-    
 6. To deploy your instance to AWS, navigate to root directory and execute in terminal:
     `./scripts/deploy.sh`
 7. To check your running API instance execute in terminal:

@@ -1,5 +1,5 @@
 # About us
-1. Ívar Kristinn Hallsson  
+## Ívar Kristinn Hallsson  
   * Where you grew up    
   I grew up in Reykjavík.    
   * education and employment history;    
@@ -9,9 +9,9 @@
   Unsure.    
   * What do you expect to get out of this course?;    
   xxxx  
-2. Vilhjálmur Rúnar Vilhjálmsson   
-<img style="float:right;" src="resources/img/villi.jpeg" width="100" height="100">
-<script>console.log("Hello")</script>
+
+<img style="float:right;" src="resources/img/villi.jpeg" width="100" height="100">  
+## Vilhjálmur Rúnar Vilhjálmsson   
 
   * Where you grew up  
     I grew up here and there but mainly in Seyðisfjörður which is a small town in the east of Iceland.

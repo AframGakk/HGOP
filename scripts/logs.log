@@ -60,4 +60,3 @@ NodeJS: v10.11.0
 AWSCli: aws-cli/1.16.62 Python/3.7.0 Darwin/18.2.0 botocore/1.12.52
 Terraform: Terraform v0.11.10 + provider.aws v1.49.0
 Docker: Docker version 18.09.0, build 4d60db4
-

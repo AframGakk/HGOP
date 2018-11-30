@@ -45,9 +45,6 @@ elif [ $unameOut = "Linux" ]
 then
     echo Installing dependancies for Linux/Ubuntu
 
-    # getting NVM
-    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
-
     # install Git
     if ! type git > /dev/null; then
         echo Installing Git
@@ -55,9 +52,9 @@ then
     fi
 
     # install node
-    if ! type npm > /dev/null; then
-        echo Installing NodeJs and NPM
-        nvm install node
+    if ! type nodejs > /dev/null; then
+        curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
+        sudo apt-get install -y nodejs
     fi
 
     # install Docker
@@ -72,8 +69,8 @@ then
         #install unzip
         sudo apt-get install unzip
         wget https://releases.hashicorp.com/terraform/0.11.10/terraform_0.11.10_linux_amd64.zip
-        cd ~/Downloads
         unzip terraform_0.11.10_linux_amd64.zip
+        rm terraform_0.11.10_linux_amd64.zip
         sudo mv terraform /usr/local/bin/
     fi
 

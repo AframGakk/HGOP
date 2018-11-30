@@ -1,2 +1,48 @@
-[26/11/2018 11:02:35] : villi - Distro: Darwin, Git: git version 2.19.0, NPM: 6.4.1, NodeJS: v10.11.0
-[27/11/2018 15:59:38] : ivar - Distro: Linux, Git: git version 2.17.1, NPM: 3.5.2, NodeJS: v8.10.0 , AWSCli aws-cli/1.14.44 Python/3.6.7 Linux/4.15.0-29-generic botocore/1.8.48
+[30/11/2018 12:02:58] : ivar - Distro: Linux
+Git: NOT INSTALLED
+NPM: 2.15.11
+NodeJS: v0.12.18
+AWSCli:
+Terraform: Terraform v0.11.10
+Docker: Docker version 18.09.0, build 4d60db4
+
+[30/11/2018 13:01:30] : ivar - Distro: Linux
+Git: git version 2.17.1
+NPM: NOT INSTALLED
+NodeJS: NOT INSTALLED
+AWSCli:
+Terraform: Terraform v0.11.10
+Docker: Docker version 18.09.0, build 4d60db4
+
+[30/11/2018 13:01:48] : ivar - Distro: Linux
+Git: git version 2.17.1
+NPM: NOT INSTALLED
+NodeJS: NOT INSTALLED
+AWSCli:
+Terraform: Terraform v0.11.10
+Docker: Docker version 18.09.0, build 4d60db4
+
+[30/11/2018 13:04:21] : ivar - Distro: Linux
+Git: git version 2.17.1
+NPM: NOT INSTALLED
+NodeJS: NOT INSTALLED
+AWSCli:
+Terraform: Terraform v0.11.10
+Docker: Docker version 18.09.0, build 4d60db4
+
+[30/11/2018 13:05:06] : ivar - Distro: Linux
+Git: git version 2.17.1
+NPM: NOT INSTALLED
+NodeJS: NOT INSTALLED
+AWSCli:
+Terraform: Terraform v0.11.10
+Docker: Docker version 18.09.0, build 4d60db4
+
+[30/11/2018 13:09:46] : ivar - Distro: Linux
+Git: git version 2.17.1
+NPM: NOT INSTALLED
+NodeJS: NOT INSTALLED
+AWSCli:
+Terraform: Terraform v0.11.10
+Docker: Docker version 18.09.0, build 4d60db4
+

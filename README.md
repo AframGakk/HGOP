@@ -18,7 +18,7 @@ Vilhjálmur Rúnar Vilhjálmsson: vilhjalmur12@ru.is
 6. Then you should be able to execute ./scripts/deploy.sh
 7. Url to instance curl $(terraform output public_ip):3000/status   
 
-## Verify that the API is running  
+## Verify that the remote API is running  
 curl $(terraform output public_ip):3000/status  
 
 ## TODO  

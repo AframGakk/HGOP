@@ -11,6 +11,7 @@
   xxxx  
 2. Vilhjálmur Rúnar Vilhjálmsson   
 <img style="float:right;" src="resources/img/villi.jpeg" width="100" height="100">
+<script>console.log("Hello")</script>
 
   * Where you grew up  
     I grew up here and there but mainly in Seyðisfjörður which is a small town in the east of Iceland.

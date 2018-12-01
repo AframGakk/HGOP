@@ -89,23 +89,11 @@ then
 
     # install AWS Client
     if ! type aws > /dev/null; then
-      #if you're missing only aws
       echo Installing AWS Client
-      pip install awscli --upgrade --user
-      if ! type pip > /dev/null; then
-        #if you´re missing pip and aws
-        echo Installing AWS Client
-        curl -O https://bootstrap.pypa.io/get-pip.py
-        python get-pip.py --user
-        if ! type python3 > /dev/null; then
-          #if you´re missing python,pip and aws
-          echo Installing AWS Client
-          sudo apt-get install python3
-          curl -O https://bootstrap.pypa.io/get-pip.py
-          python get-pip.py --user
-          pip install awscli --upgrade --user
-        fi
-      fi
+      sudo apt-get update
+      sudo apt-get install python3
+      sudo apt-get install python3-pip
+      sudo apt install awscli
     fi
 else
   echo -n Windows Really!?

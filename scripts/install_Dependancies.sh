@@ -60,6 +60,19 @@ then
     # install Docker
     if ! type docker > /dev/null; then
         echo Installing docker
+        sudo apt-get update
+        sudo apt-get install \
+        apt-transport-https \
+        ca-certificates \
+        curl \
+        software-properties-common
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+        sudo apt-key fingerprint 0EBFCD88
+        sudo add-apt-repository \
+        "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+        $(lsb_release -cs) \
+        stable"
+        sudo apt-get update
         sudo apt-get install docker-ce
     fi
 
@@ -76,23 +89,11 @@ then
 
     # install AWS Client
     if ! type aws > /dev/null; then
-      #if you're missing only aws
       echo Installing AWS Client
-      pip install awscli --upgrade --user
-      if ! type pip > /dev/null; then
-        #if you´re missing pip and aws
-        echo Installing AWS Client
-        curl -O https://bootstrap.pypa.io/get-pip.py
-        python get-pip.py --user
-        if ! type python3 > /dev/null; then
-          #if you´re missing python,pip and aws
-          echo Installing AWS Client
-          sudo apt-get install python3
-          curl -O https://bootstrap.pypa.io/get-pip.py
-          python get-pip.py --user
-          pip install awscli --upgrade --user
-        fi
-      fi
+      sudo apt-get update
+      sudo apt-get install python3
+      sudo apt-get install python3-pip
+      sudo apt install awscli
     fi
 else
   echo -n Windows Really!?

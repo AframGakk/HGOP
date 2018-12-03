@@ -4,3 +4,5 @@ terraform.*
 .terraform.*
 node_modules/
 *.tfstate
+
+SSH_jenkins.sh

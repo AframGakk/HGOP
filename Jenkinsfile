@@ -1,6 +1,6 @@
 node {
-    checkout scm
-    stage("Commit") {
-        echo "Building..."
+    def git = checkout scm
+    stage("Build") {
+        echo "${git.GIT_COMMIT}"
     }
 }

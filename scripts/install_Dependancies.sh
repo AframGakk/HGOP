@@ -74,8 +74,6 @@ then
         stable"
         sudo apt-get update
         sudo apt-get install docker-ce
-        sudo apt-get install docker-compose
-        #HATAJENKINS
     fi
 
     # install Terraform

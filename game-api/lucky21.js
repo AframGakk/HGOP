@@ -2,16 +2,6 @@ module.exports = (deck, dealer) => {
     dealer.shuffle(deck);
     let card0 = dealer.draw(deck);
     let card1 = dealer.draw(deck);
-    let state = {
-        deck: deck,
-        dealer: dealer,
-        cards: [
-            card0,
-            card1,
-        ],
-        // The card that the player thinks will exceed 21.
-        card: undefined,
-    };
 
     let calcCard = (card) => {
         let number = card.substring(0, 2);
@@ -25,19 +15,41 @@ module.exports = (deck, dealer) => {
         }
     };
 
-    let getHandSum = (cards) => {
+    let state = {
+        deck: deck,
+        dealer: dealer,
+        cards: [
+            card0,
+            card1,
+        ],
+        // The card that the player thinks will exceed 21.
+        card: 22 - (calcCard(card0) + calcCard(card1)),
+    };
+
+    let getHandSum = () => {
         let sum = 0;
-        cards.forEach((item) => {
+        state.cards.forEach((item) => {
             sum += calcCard(item);
         });
         return sum;
-    }
+    };
+
+    let updateExceedingCard = (cards) => {
+        let card = 22 - getHandSum(cards);
+
+        if (card < 0) {
+            return undefined;
+        } else {
+            return card;
+        }
+    };
+
 
     return {
         state: state,
         // Is the game over (true or false).
         isGameOver: (game) => {
-            return getHandSum(game.state.cards) > 21;
+            return getHandSum() > 21;
         },
         // Has the player won (true or false).
         playerWon: (game) => {
@@ -45,11 +57,11 @@ module.exports = (deck, dealer) => {
         },
         // The highest score the cards can yield without going over 21 (integer).
         getCardsValue: (game) => {
-            return getHandSum(game.state.cards);
+            return getHandSum();
         },
         // The value of the card that should exceed 21 if it exists (integer or undefined).
         getCardValue: (game) => {
-            // TODO
+            return game.state.card;
         },
         getTotal: (game) => {
             // TODO
@@ -65,7 +77,8 @@ module.exports = (deck, dealer) => {
         // Player action (void).
         guess21OrUnder: (game) => {
             // TODO
-            return game.state.cards.push(dealer.draw(game.state.deck));
+            game.state.cards.push(dealer.draw(game.state.deck));
+            updateExceedingCard();
         },
         // Player action (void).
         guessOver21: (game) => {

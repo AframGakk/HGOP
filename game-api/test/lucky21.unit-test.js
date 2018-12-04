@@ -73,3 +73,33 @@ test('Game should not be finished since the card value is 19', () => {
     expect(game.isGameOver(game)).toBeFalsy();
 });
 
+test('Game state should return card 10 since the cards sum is 12 because a card 10 will exceed 21', () => {
+    // Arrange
+    let deck = deckConstructor();
+    deck = [ '02C', '05D', '04S', '08H' ];
+    let dealer = dealerConstructor();
+    dealer.shuffle = (deck) => {};
+    let game = lucky21Constructor(deck, dealer);
+
+    // Act
+
+
+    // Assert
+    expect(game.getCardValue(game)).toEqual(10);
+});
+
+test('Game state should return card 10 since the cards sum is 12 because a card 10 will exceed 21', () => {
+    // Arrange
+    let deck = deckConstructor();
+    deck = [ '02C', '05D', '04S', '08H' ];
+    let dealer = dealerConstructor();
+    dealer.shuffle = (deck) => {};
+    let game = lucky21Constructor(deck, dealer);
+
+    // Act
+
+
+    // Assert
+    expect(game.getCardValue(game)).toEqual(10);
+});
+

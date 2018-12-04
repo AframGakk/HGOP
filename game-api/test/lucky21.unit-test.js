@@ -215,3 +215,94 @@ test('Gets players cards after  one guess', () => {
     expect(game.state.cards.length).toEqual(3);
     expect(game.getCards(game)).toEqual(['08H', '04S', '05D']);
 });
+
+test('Gets players cards after  one guess', () => {
+    // Arrange
+    let deck = deckConstructor();
+    deck = [ '02C', '05D', '04S', '08H' ];
+    let dealer = dealerConstructor();
+    dealer.shuffle = (deck) => {};
+    let game = lucky21Constructor(deck, dealer);
+
+    // Act
+    game.guess21OrUnder(game);
+
+    // Assert
+    expect(game.state.cards.length).toEqual(3);
+    expect(game.getCards(game)).toEqual(['08H', '04S', '05D']);
+});
+
+test('Getting a card should be undefined since the user has not guessed', () => {
+    // Arrange
+    let deck = deckConstructor();
+    deck = [ '02C', '05D', '04S', '08H' ];
+    let dealer = dealerConstructor();
+    dealer.shuffle = (deck) => {};
+    let game = lucky21Constructor(deck, dealer);
+
+    // Assert
+    expect(game.getCard(game)).toBeUndefined();
+});
+
+test('Getting a card after a choice should be 05D and defined', () => {
+    // Arrange
+    let deck = deckConstructor();
+    deck = [ '02C', '05D', '04S', '08H' ];
+    let dealer = dealerConstructor();
+    dealer.shuffle = (deck) => {};
+    let game = lucky21Constructor(deck, dealer);
+
+    // Action
+    game.guess21OrUnder(game);
+
+    // Assert
+    expect(game.getCard(game)).toBeDefined();
+    expect(game.getCard(game)).toEqual('05D');
+});
+
+test('Should add a card to hand when guessing over', () => {
+    // Arrange
+    let deck = deckConstructor();
+    deck = [ '02C', '05D', '04S', '08H' ];
+    let dealer = dealerConstructor();
+    dealer.shuffle = (deck) => {};
+    let game = lucky21Constructor(deck, dealer);
+
+    // Action
+    game.guessOver21(game);
+
+    // Assert
+    expect(game.state.cards.length).toEqual(3);
+    expect(game.state.cards[2]).toEqual('05D');
+    expect(game.state.card).toEqual('05D');
+});
+
+test('Should loose since the hand did not exceed 21 but quessed to go over', () => {
+    // Arrange
+    let deck = deckConstructor();
+    deck = [ '02C', '05D', '04S', '08H' ];
+    let dealer = dealerConstructor();
+    dealer.shuffle = (deck) => {};
+    let game = lucky21Constructor(deck, dealer);
+
+    // Action
+    game.guessOver21(game);
+
+    // Assert
+    expect(game.playerWon(game)).toBeFalsy();
+});
+
+test('Should win since the hand exceeds 21 and guessed right', () => {
+    // Arrange
+    let deck = deckConstructor();
+    deck = [ '02C', '05D', '10S', '08H' ];
+    let dealer = dealerConstructor();
+    dealer.shuffle = (deck) => {};
+    let game = lucky21Constructor(deck, dealer);
+
+    // Action
+    game.guessOver21(game);
+
+    // Assert
+    expect(game.playerWon(game)).toBeTruthy();
+});

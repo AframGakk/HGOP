@@ -35,16 +35,6 @@ module.exports = (deck, dealer) => {
         return sum;
     };
 
-    let updateExceedingCard = (cards) => {
-        let card = 22 - getHandSum(cards);
-
-        if (card < 0) {
-            return undefined;
-        } else {
-            return card;
-        }
-    };
-
     return {
         state: state,
         // Is the game over (true or false).
@@ -107,18 +97,21 @@ module.exports = (deck, dealer) => {
         },
         // The player's card (string or undefined).
         getCard: (game) => {
-            // TODO
+            return game.state.card;
         },
         // Player action (void).
         guess21OrUnder: (game) => {
-            // TODO
-            game.state.cards.push(dealer.draw(game.state.deck));
+            let card = dealer.draw(game.state.deck);
+            game.state.cards.push(card);
+            game.state.card = card;
             game.state.choice = 0;
-            updateExceedingCard();
         },
         // Player action (void).
         guessOver21: (game) => {
-            // TODO
+            let card = dealer.draw(game.state.deck);
+            game.state.cards.push(card);
+            game.state.card = card;
+            game.state.choice = 1;
         },
     };
 };

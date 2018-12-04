@@ -6,7 +6,7 @@
   "scripts": {
     "test:unit": "jest --testRegex test/*.unit-test.js",
     "test:unit:watch": "jest --watch --testRegex test/*.unit-test.js"
-},
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {

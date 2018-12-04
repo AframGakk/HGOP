@@ -4,5 +4,7 @@ terraform.*
 .terraform.*
 node_modules/
 *.tfstate
+.idea
+.idea/*
 
 SSH_jenkins.sh

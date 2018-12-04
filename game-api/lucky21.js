@@ -23,7 +23,7 @@ module.exports = (deck, dealer) => {
             card1,
         ],
         // The card that the player thinks will exceed 21.
-        card: 22 - (calcCard(card0) + calcCard(card1)),
+        card: undefined,
         choice: undefined
     };
 
@@ -85,7 +85,18 @@ module.exports = (deck, dealer) => {
         },
         // The value of the card that should exceed 21 if it exists (integer or undefined).
         getCardValue: (game) => {
-            return game.state.card;
+            let sum = getHandSum();
+            if (sum >= 21) {
+                return undefined;
+            }
+
+            for (let i = 1; i < 11; i++) {
+                if((sum + i) == 22) {
+                    return i;
+                }
+            }
+
+            return 11;
         },
         getTotal: (game) => {
             return getHandSum();

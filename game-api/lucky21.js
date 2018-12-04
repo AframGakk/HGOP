@@ -92,7 +92,7 @@ module.exports = (deck, dealer) => {
         },
         // The player's cards (array of strings).
         getCards: (game) => {
-            // TODO
+          return game.state.cards;
         },
         // The player's card (string or undefined).
         getCard: (game) => {

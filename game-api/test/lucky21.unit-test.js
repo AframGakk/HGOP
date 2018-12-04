@@ -184,4 +184,34 @@ test('Gets hand total of 17 after one guess', () => {
     expect(game.getTotal(game)).toEqual(17);
 });
 
+test('Gets players cards', () => {
+    // Arrange
+    let deck = deckConstructor();
+    deck = [ '02C', '05D', '04S', '08H' ];
+    let dealer = dealerConstructor();
+    dealer.shuffle = (deck) => {};
+    let game = lucky21Constructor(deck, dealer);
 
+    // Act
+    // game.guess21OrUnder(game);
+
+    // Assert
+    expect(game.state.cards.length).toEqual(2);
+    expect(game.getCards(game)).toEqual(['08H', '04S']);
+});
+
+test('Gets players cards after  one guess', () => {
+    // Arrange
+    let deck = deckConstructor();
+    deck = [ '02C', '05D', '04S', '08H' ];
+    let dealer = dealerConstructor();
+    dealer.shuffle = (deck) => {};
+    let game = lucky21Constructor(deck, dealer);
+
+    // Act
+    game.guess21OrUnder(game);
+
+    // Assert
+    expect(game.state.cards.length).toEqual(3);
+    expect(game.getCards(game)).toEqual(['08H', '04S', '05D']);
+});

@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test:unit": "jest --testRegex test/*.unit-test.js"
+    "test:unit": "jest --testRegex test/*.unit-test.js",
+    "test:unit:watch": "npm test:unit -- --watch"
 },
   "author": "",
   "license": "ISC",

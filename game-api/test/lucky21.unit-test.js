@@ -1,6 +1,6 @@
-const deckConstructor = require('./deck.js');
-const dealerConstructor = require('./dealer.js');
-const lucky21Constructor = require('./lucky21.js');
+const deckConstructor = require('../deck.js');
+const dealerConstructor = require('../dealer.js');
+const lucky21Constructor = require('../lucky21.js');
 
 test('guess21OrUnder should draw the next card', () => {
     // Arrange
@@ -21,4 +21,22 @@ test('guess21OrUnder should draw the next card', () => {
     // Assert
     expect(game.state.cards.length).toEqual(3);
     expect(game.state.cards[2]).toEqual('01D');
+});
+
+test('Cards should be at value 19 with [ 5, 8, 6 ]', () => {
+    // Arrange
+    let deck = deckConstructor();
+    deck = [ '02C', '06D', '08S', '05H' ];
+
+    let dealer = dealerConstructor();
+    dealer.shuffle = (deck) => {};
+
+    let game = lucky21Constructor(deck, dealer);
+
+    // Act
+    game.guess21OrUnder(game);
+
+    // Assert
+    expect(game.state.cards).toEqual(["05H", "08S", "06D"]);
+    expect(game.getCardsValue(game)).toEqual(19);
 });

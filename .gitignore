@@ -6,5 +6,6 @@ node_modules/
 *.tfstate
 .idea
 .idea/*
+game-api/package-lock.json
 
 SSH_jenkins.sh

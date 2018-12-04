@@ -1,9 +1,4 @@
-const deckConstructor = require('./deck.js');
-const dealerConstructor = require('./dealer.js');
-
-module.exports = () => {
-    let deck = deckConstructor();
-    let dealer = dealerConstructor();
+module.exports = (deck, dealer) => {
     dealer.shuffle(deck);
     let card0 = dealer.draw(deck);
     let card1 = dealer.draw(deck);
@@ -20,7 +15,6 @@ module.exports = () => {
     return {
         state: state,
         // Is the game over (true or false).
-        // Is the game finished.
         isGameOver: (game) => {
             // TODO
         },
@@ -36,7 +30,6 @@ module.exports = () => {
         getCardValue: (game) => {
             // TODO
         },
-        // The cards value + the card value if it exits (integer).
         getTotal: (game) => {
             // TODO
         },

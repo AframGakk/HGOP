@@ -40,3 +40,36 @@ test('Cards should be at value 19 with [ 5, 8, 6 ]', () => {
     expect(game.state.cards).toEqual(["05H", "08S", "06D"]);
     expect(game.getCardsValue(game)).toEqual(19);
 });
+
+test('Game should be over since the cards value are 25', () => {
+    // Arrange
+    let deck = deckConstructor();
+    deck = [ '02C', '05D', '10S', '11H' ];
+    let dealer = dealerConstructor();
+    dealer.shuffle = (deck) => {};
+
+    let game = lucky21Constructor(deck, dealer);
+
+    // Act
+    game.guess21OrUnder(game);
+
+    // Assert
+    expect(game.isGameOver(game)).toBeTruthy();
+});
+
+test('Game should not be finished since the card value is 19', () => {
+    // Arrange
+    let deck = deckConstructor();
+    deck = [ '02C', '05D', '08S', '06H' ];
+    let dealer = dealerConstructor();
+    dealer.shuffle = (deck) => {};
+
+    let game = lucky21Constructor(deck, dealer);
+
+    // Act
+    game.guess21OrUnder(game);
+
+    // Assert
+    expect(game.isGameOver(game)).toBeFalsy();
+});
+

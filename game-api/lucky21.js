@@ -25,11 +25,19 @@ module.exports = (deck, dealer) => {
         }
     };
 
+    let getHandSum = (cards) => {
+        let sum = 0;
+        cards.forEach((item) => {
+            sum += calcCard(item);
+        });
+        return sum;
+    }
+
     return {
         state: state,
         // Is the game over (true or false).
         isGameOver: (game) => {
-            // TODO
+            return getHandSum(game.state.cards) > 21;
         },
         // Has the player won (true or false).
         playerWon: (game) => {
@@ -37,12 +45,7 @@ module.exports = (deck, dealer) => {
         },
         // The highest score the cards can yield without going over 21 (integer).
         getCardsValue: (game) => {
-            // TODO
-            let sum = 0;
-            game.state.cards.forEach((item) => {
-                sum += calcCard(item);
-            });
-            return sum;
+            return getHandSum(game.state.cards);
         },
         // The value of the card that should exceed 21 if it exists (integer or undefined).
         getCardValue: (game) => {

@@ -9,6 +9,7 @@ test('guess21OrUnder should draw the next card', () => {
         '05C', '01D', '09S', '10H',
     ];
     let dealer = dealerConstructor();
+
     // Override the shuffle to do nothing.
     dealer.shuffle = (deck) => {};
 
@@ -23,7 +24,7 @@ test('guess21OrUnder should draw the next card', () => {
     expect(game.state.cards[2]).toEqual('01D');
 });
 
-test('Cards should be at value 19 with [ 5, 8, 6 ]', () => {
+test('Should give the highest value possible as 21', () => {
     // Arrange
     let deck = deckConstructor();
     deck = [ '02C', '06D', '08S', '05H' ];
@@ -34,12 +35,64 @@ test('Cards should be at value 19 with [ 5, 8, 6 ]', () => {
     let game = lucky21Constructor(deck, dealer);
 
     // Act
+    //game.guess21OrUnder(game);
+
+    // Assert
+    expect(game.state.cards).toEqual(["05H", "08S"]);
+    expect(game.getCardsValue(game)).toEqual(21);
+});
+
+test('Should give the highest value possible as 15', () => {
+    // Arrange
+    let deck = deckConstructor();
+    deck = [ '02C', '06D', '02S', '02H' ];
+
+    let dealer = dealerConstructor();
+    dealer.shuffle = (deck) => {};
+
+    let game = lucky21Constructor(deck, dealer);
+
+    // Act
+    //game.guess21OrUnder(game);
+
+    // Assert
+    expect(game.state.cards).toEqual(["02H", "02S"]);
+    expect(game.getCardsValue(game)).toEqual(15);
+});
+
+test('Player should have won after choosing under 21', () => {
+    // Arrange
+    let deck = deckConstructor();
+    deck = [ '02C', '02D', '07S', '08H' ];
+    let dealer = dealerConstructor();
+    dealer.shuffle = (deck) => {};
+
+    let game = lucky21Constructor(deck, dealer);
+
+    // Act
     game.guess21OrUnder(game);
 
     // Assert
-    expect(game.state.cards).toEqual(["05H", "08S", "06D"]);
-    expect(game.getCardsValue(game)).toEqual(19);
+    expect(game.playerWon(game)).toBeTruthy();
 });
+
+
+test('Player should have lost after choosing under 21 and he busts', () => {
+    // Arrange
+    let deck = deckConstructor();
+    deck = [ '02C', '09D', '07S', '08H' ];
+    let dealer = dealerConstructor();
+    dealer.shuffle = (deck) => {};
+
+    let game = lucky21Constructor(deck, dealer);
+
+    // Act
+    game.guess21OrUnder(game);
+
+    // Assert
+    expect(game.playerWon(game)).toBeFalsy();
+});
+
 
 test('Game should be over since the cards value are 25', () => {
     // Arrange
@@ -102,4 +155,33 @@ test('Game state should return card 10 since the cards sum is 12 because a card 
     // Assert
     expect(game.getCardValue(game)).toEqual(10);
 });
+
+
+test('Gets hand total of 12', () => {
+    // Arrange
+    let deck = deckConstructor();
+    deck = [ '02C', '05D', '04S', '08H' ];
+    let dealer = dealerConstructor();
+    dealer.shuffle = (deck) => {};
+    let game = lucky21Constructor(deck, dealer);
+
+    // Assert
+    expect(game.getTotal(game)).toEqual(12);
+});
+
+test('Gets hand total of 17 after one guess', () => {
+    // Arrange
+    let deck = deckConstructor();
+    deck = [ '02C', '05D', '04S', '08H' ];
+    let dealer = dealerConstructor();
+    dealer.shuffle = (deck) => {};
+    let game = lucky21Constructor(deck, dealer);
+
+    // Act
+    game.guess21OrUnder(game);
+
+    // Assert
+    expect(game.getTotal(game)).toEqual(17);
+});
+
 

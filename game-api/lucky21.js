@@ -24,6 +24,7 @@ module.exports = (deck, dealer) => {
         ],
         // The card that the player thinks will exceed 21.
         card: 22 - (calcCard(card0) + calcCard(card1)),
+        choice: undefined
     };
 
     let getHandSum = () => {
@@ -44,7 +45,6 @@ module.exports = (deck, dealer) => {
         }
     };
 
-
     return {
         state: state,
         // Is the game over (true or false).
@@ -53,18 +53,42 @@ module.exports = (deck, dealer) => {
         },
         // Has the player won (true or false).
         playerWon: (game) => {
-
+            if(game.state.choice == 0) {
+                if(getHandSum() <= 21) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                if(getHandSum() > 21) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
         },
         // The highest score the cards can yield without going over 21 (integer).
         getCardsValue: (game) => {
-            return getHandSum();
+            let sum = getHandSum();
+
+            if (sum >= 21) {
+                return 0;
+            }
+
+            for (let i = 1; i < 11; i++) {
+                if((sum + i) == 21) {
+                    return 21;
+                }
+            }
+
+            return (sum + 11);
         },
         // The value of the card that should exceed 21 if it exists (integer or undefined).
         getCardValue: (game) => {
             return game.state.card;
         },
         getTotal: (game) => {
-            // TODO
+            return getHandSum();
         },
         // The player's cards (array of strings).
         getCards: (game) => {
@@ -78,6 +102,7 @@ module.exports = (deck, dealer) => {
         guess21OrUnder: (game) => {
             // TODO
             game.state.cards.push(dealer.draw(game.state.deck));
+            game.state.choice = 0;
             updateExceedingCard();
         },
         // Player action (void).

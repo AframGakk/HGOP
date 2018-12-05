@@ -3,18 +3,6 @@ module.exports = (deck, dealer) => {
     let card0 = dealer.draw(deck);
     let card1 = dealer.draw(deck);
 
-    let calcCard = (card) => {
-        let number = card.substring(0, 2);
-
-        if(parseInt(number) < 10 && parseInt(number) > 1) {
-            return parseInt(number);
-        } else if (parseInt(number) == 1) {
-            return 11;
-        } else {
-            return 10;
-        }
-    };
-
     let state = {
         deck: deck,
         dealer: dealer,
@@ -25,6 +13,25 @@ module.exports = (deck, dealer) => {
         // The card that the player thinks will exceed 21.
         card: undefined,
         choice: undefined
+    };
+
+
+
+    let calcCard = (card) => {
+        let number = card.substring(0, 2);
+
+        if(parseInt(number) < 10 && parseInt(number) > 1) {
+            return parseInt(number);
+        } else if (parseInt(number) == 1) {
+            //let sum = calcCardAceHelper();
+            //if ((sum + 11) > 21) {
+            //    return 1;
+            //} else {
+            return 11;
+            //}
+        } else {
+            return 10;
+        }
     };
 
     let getHandSum = () => {

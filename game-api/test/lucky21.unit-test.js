@@ -60,6 +60,24 @@ test('Should give the highest value possible as 15', () => {
     expect(game.getCardsValue(game)).toEqual(15);
 });
 
+/* TODO: Finish the ACE problem
+test('Player gets ace at draw, the ace should give 1 since 11 exceeds 21', () => {
+    // Arrange
+    let deck = deckConstructor();
+    deck = [ '02C', '01D', '07S', '08H' ];
+    let dealer = dealerConstructor();
+    dealer.shuffle = (deck) => {};
+
+    let game = lucky21Constructor(deck, dealer);
+
+    // Act
+    game.guess21OrUnder(game);
+
+    // Assert
+    expect(game.getTotal(game)).toBeEqual(16);
+});
+*/
+
 test('Player should have won after choosing under 21', () => {
     // Arrange
     let deck = deckConstructor();

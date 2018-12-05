@@ -9,6 +9,7 @@ node {
         stage("setup") {
           dir("game-api") {
             sh 'npm install eslint --save-dev'
+            sh 'npm install eslint-config-google --save-dev'
           }
         }
 

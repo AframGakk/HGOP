@@ -7,7 +7,7 @@ node {
         }
 
         stage("setup") {
-            npm install eslint --save-dev
+          sh 'npm install eslint --save-dev'
         }
 
         stage("Build") {

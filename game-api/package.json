@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test:unit": "jest --testRegex test/*.unit-test.js",
-    "test:unit:watch": "jest --watch --testRegex test/*.unit-test.js"
+    "test:unit:watch": "jest --watch --testRegex test/*.unit-test.js",
+    "eslint": "./node_modules/eslint/bin/eslint.js ."
   },
   "author": "",
   "license": "ISC",

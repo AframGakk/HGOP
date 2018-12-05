@@ -13,11 +13,17 @@ node {
           }
         }
 
-        stage("eslint") {
+        stage("lint") {
             dir("game-api") {
                 sh 'npm run eslint'
             }
         }
+
+        stage("unit test") {
+                    dir("game-api") {
+                        sh 'npm run test:unit'
+                    }
+                }
 
         stage("Build") {
             sh "./scripts/docker_build.sh ${git.GIT_COMMIT}"

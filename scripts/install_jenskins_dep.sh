@@ -34,6 +34,13 @@ if ! type docker > /dev/null; then
     sudo apt-get install docker-ce
 fi
 
+# install Docker-compose
+if ! type docker-compose > /dev/null; then
+    echo Installing docker-compose
+    sudo curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+fi
+
 # install node
 if ! type nodejs > /dev/null; then
     curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -

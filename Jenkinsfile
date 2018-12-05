@@ -7,6 +7,7 @@ node {
         }
 
         stage("setup") {
+            sh 'cd game-api/'
           sh 'npm install eslint --save-dev'
         }
 

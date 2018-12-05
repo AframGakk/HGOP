@@ -7,6 +7,4 @@ node_modules/
 .idea
 .idea/*
 game-api/package-lock.json
-scripts/sync_session.sh
-
 SSH_jenkins.sh

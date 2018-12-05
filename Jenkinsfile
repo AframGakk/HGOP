@@ -7,12 +7,15 @@ node {
         }
 
         stage("setup") {
-            sh 'cd game-api/'
-          sh 'npm install eslint --save-dev'
+          dir("game-api") {
+            sh 'npm install eslint --save-dev'
+          }
         }
 
         stage("eslint") {
-            sh 'npm run eslint'
+            dir("game-api") {
+                sh 'npm run eslint'
+            }
         }
 
         stage("Build") {

@@ -3,5 +3,22 @@
     "env": {
         "es6": true
     },
-    "indent": 2
+    "rules": {
+        "indent": [2, 4],
+        "quotes": 0,
+        "no-var": 0,
+        "spaced-comment": 0,
+        "space-before-function-paren": 0,
+        "space-before-blocks": 0,
+        "arrow-parens": 0,
+        "semi": 0,
+        "object-curly-spacing": 0,
+        "max-len": 0,
+        "comma-dangle": 0,
+        "require-jsdoc": 0,
+        "prefer-const": 0,
+        "no-multiple-empty-lines": 0,
+        "keyword-spacing": 0,
+        "array-bracket-spacing": 0
+    }
 }

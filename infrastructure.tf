@@ -9,7 +9,7 @@ provider "aws" {
 # ports are open on an instance and which protocol is used to communicate to the port. Ingress values are
 # rules for the security group where a rule can open up a port with specific communication style.
 resource "aws_security_group" "game_security_group" {
-  name   = "GameSecurityGroup"
+  name   = "JenkinsSecurityGroup"
 
   ingress {
     from_port   = 22

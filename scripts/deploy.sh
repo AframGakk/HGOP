@@ -1,7 +1,7 @@
 #!/bin/bash
 
 pwd
-rm -r repository
+rm -rf repository
 git clone git@github.com:AframGakk/HGOP.git repository
 cd repository
 

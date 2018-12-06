@@ -82,3 +82,5 @@ if ! type jenkins > /dev/null; then
     sudo apt-get install jenkins
 fi
 
+sudo usermod -a -G docker jenkins
+

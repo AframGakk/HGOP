@@ -6,7 +6,7 @@ git clone git@github.com:AframGakk/HGOP.git repository
 cd repository
 
 # Delete all .tf files from /var/lib/jenkins/terraform/hgop/production
-rm  find . -name "/var/lib/jenkins/terraform/hgop/production/*.tf" | xargs rm
+find . -name "/var/lib/jenkins/terraform/hgop/production/*.tf" | xargs rm
 # Copy all .tf files from repository to /var/lib/jenkins/terraform/hgop/production
 cp "*.tf" "/var/lib/jenkins/terraform/hgop/production"
 

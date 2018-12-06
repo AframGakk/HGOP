@@ -1,6 +1,10 @@
 #!/bin/bash
 
-pwd
+cd repository
+# Destroying the terraform instance
+terraform destroy -auto-approve
+
+cd ..
 rm -rf repository
 git clone git@github.com:AframGakk/HGOP.git repository
 cd repository
@@ -10,8 +14,7 @@ cd repository
 # Copy all .tf files from repository to /var/lib/jenkins/terraform/hgop/production
 #sudo cp *.tf /var/lib/jenkins/terraform/hgop/production
 
-# Destroying the terraform instance
-terraform destroy -auto-approve
+
 
 #cd /var/lib/jenkins/terraform/hgop/production
 

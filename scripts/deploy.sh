@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rm -rf repsoitory
+rm -r repsoitory
 git clone git@github.com:AframGakk/HGOP.git repository
 cd repository
 

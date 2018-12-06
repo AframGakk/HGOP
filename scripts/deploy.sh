@@ -6,14 +6,14 @@ git clone git@github.com:AframGakk/HGOP.git repository
 cd repository
 
 # Delete all .tf files from /var/lib/jenkins/terraform/hgop/production
-rm "/var/lib/jenkins/terraform/hgop/production/*.tf"
+#rm "/var/lib/jenkins/terraform/hgop/production/*.tf"
 # Copy all .tf files from repository to /var/lib/jenkins/terraform/hgop/production
-sudo cp *.tf /var/lib/jenkins/terraform/hgop/production
+#sudo cp *.tf /var/lib/jenkins/terraform/hgop/production
 
 # Destroying the terraform instance
 terraform destroy -auto-approve
 
-cd /var/lib/jenkins/terraform/hgop/production
+#cd /var/lib/jenkins/terraform/hgop/production
 
 # Init Terraform
 terraform init

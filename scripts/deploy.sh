@@ -8,7 +8,7 @@ cd repository
 # Delete all .tf files from /var/lib/jenkins/terraform/hgop/production
 rm "/var/lib/jenkins/terraform/hgop/production/*.tf"
 # Copy all .tf files from repository to /var/lib/jenkins/terraform/hgop/production
-cp "*.tf" "/var/lib/jenkins/terraform/hgop/production"
+sudo cp *.tf /var/lib/jenkins/terraform/hgop/production
 
 # Destroying the terraform instance
 terraform destroy -auto-approve

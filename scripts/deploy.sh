@@ -1,8 +1,13 @@
 #!/bin/bash
 
+pwd
 rm -r repository
 git clone git@github.com:AframGakk/HGOP.git repository
 cd repository
+
+# Delete all .tf files from /var/lib/jenkins/terraform/hgop/production
+
+# Copy all .tf files from repository to /var/lib/jenkins/terraform/hgop/production
 
 # Destroying the terraform instance
 terraform destroy -auto-approve

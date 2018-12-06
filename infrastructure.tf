@@ -8,30 +8,30 @@ provider "aws" {
 # holds information about a new provider security group. Provider security group controls which
 # ports are open on an instance and which protocol is used to communicate to the port. Ingress values are
 # rules for the security group where a rule can open up a port with specific communication style.
-resource "aws_security_group" "game_security_group" {
-  name   = "JenkinsSecurityGroup"
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 3000
-    to_port     = 3000
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
+# resource "aws_security_group" "game_security_group" {
+#  name   = "JenkinsSecurityGroup"
+#
+#  ingress {
+#    from_port   = 22
+#    to_port     = 22
+#    protocol    = "tcp"
+#    cidr_blocks = ["0.0.0.0/0"]
+#  }
+#
+#  ingress {
+#    from_port   = 3000
+#    to_port     = 3000
+#    protocol    = "tcp"
+#    cidr_blocks = ["0.0.0.0/0"]
+#  }
+#
+#  egress {
+#    from_port   = 0
+#    to_port     = 0
+#    protocol    = "-1"
+#    cidr_blocks = ["0.0.0.0/0"]
+#  }
+#}
 
 # Information about the new instance to be created on the providor. This names the instance, sets which type of instance
 # (in this case Ubuntu t2.micro) and the security info (security group, key to be used).

@@ -14,7 +14,7 @@ cd repository
 # Copy all .tf files from repository to /var/lib/jenkins/terraform/hgop/production
 #sudo cp *.tf /var/lib/jenkins/terraform/hgop/production
 
-
+#
 
 #cd /var/lib/jenkins/terraform/hgop/production
 

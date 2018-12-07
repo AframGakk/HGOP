@@ -64,7 +64,6 @@ test('dealer should should shuffle cards', () => {
     expect(deck.length).toEqual(3);
 });
 
-
 test('check the correct draw from dealer after shuffle', () => {
     // Arrange
     let dependencies = {

@@ -81,7 +81,6 @@ test('Should give the highest value possible as 15', () => {
     expect(game.getCardsValue(game)).toEqual(15);
 });
 
-// TODO: Finish the ACE problem
 test('Player gets ace at draw, the ace should give 1 since 11 exceeds 21', () => {
     // Arrange
     let deck = [ '02C', '01D', '07S', '08H' ];
@@ -102,7 +101,7 @@ test('Player gets ace at draw, the ace should give 1 since 11 exceeds 21', () =>
     expect(game.getTotal(game)).toEqual(16);
 });
 
-
+// test for winning if under 21
 test('Player should have won after choosing under 21', () => {
     // Arrange
     let deck = [ '02C', '02D', '07S', '08H' ];

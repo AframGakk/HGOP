@@ -17,9 +17,11 @@ module.exports = (context) => {
         ],
         // The card that the player thinks will exceed 21.
         card: undefined,
+        // The choice each time makes easier to run in state environment
         choice: undefined
     };
 
+    // calculates the value of one card (checks sum for eval of an ace)
     let calcCard = (card, sum) => {
         let number = card.substring(0, 2);
 
@@ -36,6 +38,7 @@ module.exports = (context) => {
         }
     };
 
+    // returns the sum of the hand
     let getHandSum = () => {
         let sum = 0;
         state.cards.forEach((item) => {

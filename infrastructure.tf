@@ -54,6 +54,17 @@ resource "aws_instance" "game_server" {
       private_key = "${file("~/.aws/GameKeyPair.pem")}"
     }
   }
+  # Copies the docker compose up file to the newly made remote server
+    provisioner "file" {
+      source      = "scripts/docker_compose_up.sh"
+      destination = "/home/ubuntu/docker_compose_up.sh"
+
+      connection {
+        type        = "ssh"
+        user        = "ubuntu"
+        private_key = "${file("~/.aws/GameKeyPair.pem")}"
+      }
+    }
   # Copies the docker-compose yaml file to the new instance via SSH.
   provisioner "file" {
     source      = "docker-compose.yml"
@@ -84,6 +95,18 @@ resource "aws_instance" "game_server" {
       private_key = "${file("~/.aws/GameKeyPair.pem")}"
     }
   }
+
+  provisioner "remote-exec" {
+      inline = [
+        "chmod +x /home/ubuntu/docker_compose_up.sh",
+      ]
+
+      connection {
+        type        = "ssh"
+        user        = "ubuntu"
+        private_key = "${file("~/.aws/GameKeyPair.pem")}"
+      }
+    }
 }
 
 # Creates output variable for Terraform. In this case the public_ip variable

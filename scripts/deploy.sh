@@ -29,8 +29,12 @@ terraform apply -auto-approve
 
 echo "Game API running at " + $(terraform output public_ip)
 
+echo Running initialize script
 ssh -o StrictHostKeyChecking=no -i "~/.aws/GameKeyPair.pem" ubuntu@$(terraform output public_ip) "./initialize_game_api_instance.sh"
+echo Initialize complete
+echo Running Docker Compose Up
 ssh -o StrictHostKeyChecking=no -i "~/.aws/GameKeyPair.pem" ubuntu@$(terraform output public_ip) "./docker_compose_up.sh $GIT_COMMIT"
+echo Docker compose complete
 
 #TODO exit on error if deployment fails.
 

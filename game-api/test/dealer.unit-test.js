@@ -44,6 +44,7 @@ test('dealer should shuffle cards and deck length should be 3', () => {
     expect(deck.length).toEqual(3);
 });
 
+
 // TODO: Finna betra test fyrir shuffle
 test('dealer should should shuffle cards', () => {
     // Arrange
@@ -64,7 +65,6 @@ test('dealer should should shuffle cards', () => {
 });
 
 
-// TODO: Create at least 2 unit tests for dealer.js - draw.
 test('check the correct draw from dealer after shuffle', () => {
     // Arrange
     let dependencies = {

@@ -8,6 +8,7 @@ This is the first weeks assignment in HGOP.
 Ívar Kristinn Hallsson: ivar17@ru.is      
 Vilhjálmur Rúnar Vilhjálmsson: vilhjalmur12@ru.is  
 
+# Week 1  
 ## To build  
 1. git clone the project  
     `git clone https://github.com/AframGakk/HGOP.git`  
@@ -43,3 +44,9 @@ To check the running instance enter in terminal:
 
 ### Extra things added
 We decided to structure the repository like if a new programmer would be joining us. Therefore in this readme document you can find the steps of building and setting up the environment. In extra of verifying the environment with a script we also made an extra script which will install all dependancies needed for the project for you. The install script can be run separately or if the verify_enviroment script is ran, the script asks whether you want to run the install script if it did not found some dependancy. Note that the install script is modified for both OSX (darwin) and Linux.
+
+# Week 2  
+## URL  
+URL to jenkins instance on port 8080 and with username and pw  
+## Test folder    
+All our unit-test are in a dedicated test folder /game_api/test  

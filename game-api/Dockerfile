@@ -7,6 +7,12 @@ COPY package.json package.json
 COPY database.js database.js
 # Copies source app.js into the container
 COPY app.js app.js
+COPY context.js context.js
+COPY server.js server.js
+COPY lucky21.js lucky21.js
+COPY deck.js deck.js
+COPY dealer.js dealer.js
+COPY random.js random.js
 #  Install dependencies
 RUN npm install --production
 # Start the container command

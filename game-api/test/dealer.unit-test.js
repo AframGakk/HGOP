@@ -44,9 +44,7 @@ test('dealer should shuffle cards and deck length should be 3', () => {
     expect(deck.length).toEqual(3);
 });
 
-
-// TODO: Finna betra test fyrir shuffle
-test('dealer should should shuffle cards', () => {
+test('dealer should return a empty deck if deck was empty', () => {
     // Arrange
     let dependencies = {
         'random': newRandom([2, 1]),
@@ -55,13 +53,13 @@ test('dealer should should shuffle cards', () => {
     let dealer = newDealer((name) => {
         return dependencies[name];
     });
-    let deck = ['a', 'b', 'c'];
+    let deck = [];
 
     // Act
     dealer.shuffle(deck);
 
     // Assert
-    expect(deck.length).toEqual(3);
+    expect(deck).toEqual([ ]);
 });
 
 test('check the correct draw from dealer after shuffle', () => {

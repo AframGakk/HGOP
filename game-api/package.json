@@ -4,9 +4,12 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test:unit": "jest --testRegex test/*.unit-test.js",
-    "test:unit:watch": "jest --watch --testRegex test/*.unit-test.js",
+    "test:unit": "jest",
+    "test:unit:watch": "jest --watch",
     "eslint": "./node_modules/eslint/bin/eslint.js ."
+  },
+  "jest": {
+    "testRegex": "./test/.*.unit-test.js$"
   },
   "author": "",
   "license": "ISC",

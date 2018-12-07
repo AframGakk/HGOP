@@ -1,7 +1,8 @@
 module.exports = (context) => {
     return {
         shuffle: (deck) => {
-            const random = context('random');
+            const randomConst = context('random');
+            const random = randomConst(context);
             for (let i = 0; i < deck.length - 1; i++) {
                 const j = random.randomInt(i, deck.length);
                 //Math.floor(Math.random() * (deck.length - i)) + i;

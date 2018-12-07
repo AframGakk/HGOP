@@ -75,7 +75,7 @@ module.exports = function(context) {
     });
 
     // Player makes a guess that the next card will be 21 or under..
-    app.post('guess21OrUnder', (req, res) => {
+    app.post('/guess21OrUnder', (req, res) => {
         if (game) {
             if (game.isGameOver(game)) {
                 const msg = 'Game is already over'
@@ -104,7 +104,7 @@ module.exports = function(context) {
     });
 
     // Player makes a guess that the next card will be over 21.
-    app.post('guessOver21', (req, res) => {
+    app.post('/guessOver21', (req, res) => {
         if (game) {
             if (game.isGameOver(game)) {
                 const msg = 'Game is already over'

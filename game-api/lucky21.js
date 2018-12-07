@@ -127,9 +127,11 @@ module.exports = (context) => {
         },
         getState: (game) => {
             return {
-                cards: this.getCards(game),
-                card: this.getCard(game),
-                finished: this.isGameOver(game)
+                cards: game.getCards(game),
+                card: game.getCard(game),
+                finished: game.isGameOver(game),
+                total: game.getTotal(game),
+                player_won: game.playerWon(game)
             }
         }
     };

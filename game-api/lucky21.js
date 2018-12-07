@@ -103,7 +103,7 @@ module.exports = (context) => {
         getTotal: (game) => {
             return getHandSum();
         },
-        // The player's cards (array of strings).
+        // The player's cards (array of strings)..
         getCards: (game) => {
             return game.state.cards;
         },
@@ -126,9 +126,11 @@ module.exports = (context) => {
             game.state.choice = 1;
         },
         getState: (game) => {
-            cards: this.getCards(game);
-            card: this.getCard(game);
-            finished: this.isGameOver(game);
+            return {
+                cards: this.getCards(game),
+                card: this.getCard(game),
+                finished: this.isGameOver(game)
+            }
         }
     };
 };

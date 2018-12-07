@@ -12,7 +12,7 @@ test('dealer should should shuffle cards', () => {
     let dependencies = {
         'random': newRandom([2, 1]),
     };
-    let newDealer = require('./dealer.js');
+    let newDealer = require('../dealer.js');
     let dealer = newDealer((name) => {
         return dependencies[name];
     });

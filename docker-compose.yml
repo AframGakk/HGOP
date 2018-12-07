@@ -7,6 +7,7 @@ services:
     depends_on:
     - my_postgres_container
     environment:
+        PORT: 3000
       POSTGRES_DB: 'my_postgres_database'
       POSTGRES_USER: 'my_postgres_user'
       POSTGRES_PASSWORD: 'my_postgres_password'

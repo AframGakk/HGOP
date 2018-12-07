@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# exit if any command returns a non-zero exit code
+# exit if any command returns a non-zero exit code changed
 #set -e
 
 echo 'This script installs everything needed to run our API on the instance'

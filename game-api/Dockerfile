@@ -8,6 +8,6 @@ COPY database.js database.js
 # Copies source app.js into the container
 COPY app.js app.js
 #  Install dependencies
-RUN npm install
+RUN npm install --production
 # Start the container command
 CMD node app.js

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # exit if any command returns a non-zero exit code
-set -e
+#set -e
 
 echo 'This script installs everything needed to run our API on the instance'
 echo 'and then starts the API.'

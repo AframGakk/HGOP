@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # exit the script if any command has an non-zero exit code
-set -e
+#set -e
 
 rm -rf repository
 git clone git@github.com:AframGakk/HGOP.git repository

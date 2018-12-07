@@ -32,6 +32,9 @@ node {
             sh "./scripts/docker_push.sh ${git.GIT_COMMIT}"
         }
 
+        stage("Deploy") {
+            sh "./scripts/deploy.sh"
+        }
 
         build job: 'AframGakk/HGOP/master', parameters: [[$class: 'StringParameterValue', name: 'GIT_COMMIT', value: "${git.GIT_COMMIT}"]]
 

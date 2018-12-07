@@ -33,6 +33,6 @@ node {
         }
 
 
-        build job: 'name of deployment job', parameters: [[$class: 'StringParameterValue', name: 'GIT_COMMIT', value: "${git.GIT_COMMIT}"]]
+        build job: 'AframGakk/HGOP/master', parameters: [[$class: 'StringParameterValue', name: 'GIT_COMMIT', value: "${git.GIT_COMMIT}"]]
 
 }

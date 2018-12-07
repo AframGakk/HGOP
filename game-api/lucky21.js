@@ -126,9 +126,9 @@ module.exports = (context) => {
             game.state.choice = 1;
         },
         getState: (game) => {
-            cards: this.getCards(game),
-            card: this.getCard(game),
-            finished: this.isGameOver(game),
-        };
+            cards: this.getCards(game);
+            card: this.getCard(game);
+            finished: this.isGameOver(game);
+        }
     };
 };

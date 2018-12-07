@@ -19,7 +19,7 @@ fi
 if ! type docker > /dev/null; then
     echo Installing docker
     sudo apt-get update
-    sudo apt-get install \
+    sudo apt-get install -y \
     apt-transport-https \
     ca-certificates \
     curl \
@@ -31,7 +31,7 @@ if ! type docker > /dev/null; then
     $(lsb_release -cs) \
     stable"
     sudo apt-get update
-    sudo apt-get install docker-ce
+    sudo apt-get install docker-ce -y
 fi
 
 # install Docker-compose

@@ -20,10 +20,12 @@ cp ./scripts/docker_compose_up.sh /var/lib/jenkins/terraform/hgop/production/scr
 #
 cd /var/lib/jenkins/terraform/hgop/production
 
-# Init Terraform
-terraform init
 # Destroying the terraform instance
 terraform destroy -auto-approve
+
+# Init Terraform
+terraform init
+
 # Apply the instance to AWS via terraform
 terraform apply -auto-approve
 
@@ -33,6 +35,7 @@ echo Running initialize script
 ssh -o StrictHostKeyChecking=no -i "~/.aws/GameKeyPair.pem" ubuntu@$(terraform output public_ip) "./initialize_game_api_instance.sh"
 echo Initialize complete
 echo Running Docker Compose Up
+echo $GIT_COMMIT
 ssh -o StrictHostKeyChecking=no -i "~/.aws/GameKeyPair.pem" ubuntu@$(terraform output public_ip) "./docker_compose_up.sh $GIT_COMMIT"
 echo Docker compose complete
 

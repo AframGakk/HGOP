@@ -26,7 +26,7 @@ test('testing ace import', () => {
     dealer.shuffle = (deck) => {};
 
     // Inject our dependencies
-    let game = lucky21Constructor(deck, dealer);
+    let game = gameinit();
 
     // Assert
     expect(game.calcCardAce()).toEqual("HELLO");

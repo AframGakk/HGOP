@@ -1,3 +1,4 @@
+// sneaky little function
 function newRandom(randomReturnValues) {
     let i = 0;
     return () => ({

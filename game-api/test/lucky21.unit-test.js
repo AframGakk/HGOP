@@ -1,6 +1,18 @@
 const deckConstructor = require('../deck.js');
 const dealerConstructor = require('../dealer.js');
 const lucky21Constructor = require('../lucky21.js');
+const randomConstructor = require('../random.js');
+
+const gameinit = () => {
+    let dependencies = {
+        'deck': deckConstructor,
+        'dealer': dealerConstructor,
+        'random': randomConstructor(),
+    };
+    return lucky21Constructor((name) => dependencies[name]);
+};
+
+
 
 test('testing ace import', () => {
     // Arrange
@@ -32,7 +44,7 @@ test('guess21OrUnder should draw the next card', () => {
     dealer.shuffle = (deck) => {};
 
     // Inject our dependencies
-    let game = lucky21Constructor(deck, dealer);
+    let game = gameinit();
 
     // Act
     game.guess21OrUnder(game);
@@ -50,7 +62,7 @@ test('Should give the highest value possible as 21', () => {
     let dealer = dealerConstructor();
     dealer.shuffle = (deck) => {};
 
-    let game = lucky21Constructor(deck, dealer);
+    let game = gameinit();
 
     // Act
     //game.guess21OrUnder(game);
@@ -68,7 +80,7 @@ test('Should give the highest value possible as 15', () => {
     let dealer = dealerConstructor();
     dealer.shuffle = (deck) => {};
 
-    let game = lucky21Constructor(deck, dealer);
+    let game = gameinit();
 
     // Act
     //game.guess21OrUnder(game);
@@ -103,7 +115,7 @@ test('Player should have won after choosing under 21', () => {
     let dealer = dealerConstructor();
     dealer.shuffle = (deck) => {};
 
-    let game = lucky21Constructor(deck, dealer);
+    let game = gameinit();
 
     // Act
     game.guess21OrUnder(game);
@@ -120,7 +132,7 @@ test('Player should have lost after choosing under 21 and he busts', () => {
     let dealer = dealerConstructor();
     dealer.shuffle = (deck) => {};
 
-    let game = lucky21Constructor(deck, dealer);
+    let game = gameinit();
 
     // Act
     game.guess21OrUnder(game);
@@ -137,7 +149,7 @@ test('Game should be over since the cards value are 25', () => {
     let dealer = dealerConstructor();
     dealer.shuffle = (deck) => {};
 
-    let game = lucky21Constructor(deck, dealer);
+    let game = gameinit();
 
     // Act
     game.guess21OrUnder(game);
@@ -153,7 +165,7 @@ test('Game should not be finished since the card value is 19', () => {
     let dealer = dealerConstructor();
     dealer.shuffle = (deck) => {};
 
-    let game = lucky21Constructor(deck, dealer);
+    let game = gameinit();
 
     // Act
     game.guess21OrUnder(game);
@@ -168,7 +180,7 @@ test('Game state should return card 10 since the cards sum is 12 because a card 
     deck = [ '02C', '05D', '04S', '08H' ];
     let dealer = dealerConstructor();
     dealer.shuffle = (deck) => {};
-    let game = lucky21Constructor(deck, dealer);
+    let game = gameinit();
 
     // Act
 
@@ -183,7 +195,7 @@ test('Game state should return card 10 since the cards sum is 12 because a card 
     deck = [ '02C', '05D', '04S', '08H' ];
     let dealer = dealerConstructor();
     dealer.shuffle = (deck) => {};
-    let game = lucky21Constructor(deck, dealer);
+    let game = gameinit();
 
     // Act
 
@@ -199,7 +211,7 @@ test('Gets hand total of 12', () => {
     deck = [ '02C', '05D', '04S', '08H' ];
     let dealer = dealerConstructor();
     dealer.shuffle = (deck) => {};
-    let game = lucky21Constructor(deck, dealer);
+    let game = gameinit();
 
     // Assert
     expect(game.getTotal(game)).toEqual(12);
@@ -211,7 +223,7 @@ test('Gets hand total of 17 after one guess', () => {
     deck = [ '02C', '05D', '04S', '08H' ];
     let dealer = dealerConstructor();
     dealer.shuffle = (deck) => {};
-    let game = lucky21Constructor(deck, dealer);
+    let game = gameinit();
 
     // Act
     game.guess21OrUnder(game);
@@ -226,7 +238,7 @@ test('Gets players cards', () => {
     deck = [ '02C', '05D', '04S', '08H' ];
     let dealer = dealerConstructor();
     dealer.shuffle = (deck) => {};
-    let game = lucky21Constructor(deck, dealer);
+    let game = gameinit();
 
     // Act
     // game.guess21OrUnder(game);
@@ -242,7 +254,7 @@ test('Gets players cards after  one guess', () => {
     deck = [ '02C', '05D', '04S', '08H' ];
     let dealer = dealerConstructor();
     dealer.shuffle = (deck) => {};
-    let game = lucky21Constructor(deck, dealer);
+    let game = gameinit();
 
     // Act
     game.guess21OrUnder(game);
@@ -258,7 +270,7 @@ test('Gets players cards after  one guess', () => {
     deck = [ '02C', '05D', '04S', '08H' ];
     let dealer = dealerConstructor();
     dealer.shuffle = (deck) => {};
-    let game = lucky21Constructor(deck, dealer);
+    let game = gameinit();
 
     // Act
     game.guess21OrUnder(game);
@@ -274,7 +286,7 @@ test('Getting a card should be undefined since the user has not guessed', () => 
     deck = [ '02C', '05D', '04S', '08H' ];
     let dealer = dealerConstructor();
     dealer.shuffle = (deck) => {};
-    let game = lucky21Constructor(deck, dealer);
+    let game = gameinit();
 
     // Assert
     expect(game.getCard(game)).toBeUndefined();
@@ -286,7 +298,7 @@ test('Getting a card after a choice should be 05D and defined', () => {
     deck = [ '02C', '05D', '04S', '08H' ];
     let dealer = dealerConstructor();
     dealer.shuffle = (deck) => {};
-    let game = lucky21Constructor(deck, dealer);
+    let game = gameinit();
 
     // Action
     game.guess21OrUnder(game);
@@ -302,7 +314,7 @@ test('Should add a card to hand when guessing over', () => {
     deck = [ '02C', '05D', '04S', '08H' ];
     let dealer = dealerConstructor();
     dealer.shuffle = (deck) => {};
-    let game = lucky21Constructor(deck, dealer);
+    let game = gameinit();
 
     // Action
     game.guessOver21(game);
@@ -319,7 +331,7 @@ test('Should loose since the hand did not exceed 21 but quessed to go over', () 
     deck = [ '02C', '05D', '04S', '08H' ];
     let dealer = dealerConstructor();
     dealer.shuffle = (deck) => {};
-    let game = lucky21Constructor(deck, dealer);
+    let game = gameinit();
 
     // Action
     game.guessOver21(game);
@@ -334,7 +346,7 @@ test('Should win since the hand exceeds 21 and guessed right', () => {
     deck = [ '02C', '05D', '10S', '08H' ];
     let dealer = dealerConstructor();
     dealer.shuffle = (deck) => {};
-    let game = lucky21Constructor(deck, dealer);
+    let game = gameinit();
 
     // Action
     game.guessOver21(game);

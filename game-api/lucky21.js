@@ -20,19 +20,17 @@ module.exports = (context) => {
         choice: undefined
     };
 
-
-    let calcCard = (card) => {
+    let calcCard = (card, sum) => {
         let number = card.substring(0, 2);
 
         if(parseInt(number) < 10 && parseInt(number) > 1) {
             return parseInt(number);
         } else if (parseInt(number) == 1) {
-            //let sum = calcCardAceHelper();
-            //if ((sum + 11) > 21) {
-            //    return 1;
-            //} else {
-            return 11;
-            //}
+            if ((sum + 11) > 20) {
+                return 1;
+            } else {
+                return 11;
+            }
         } else {
             return 10;
         }
@@ -41,7 +39,7 @@ module.exports = (context) => {
     let getHandSum = () => {
         let sum = 0;
         state.cards.forEach((item) => {
-            sum += calcCard(item);
+            sum += calcCard(item, sum);
         });
         return sum;
     };

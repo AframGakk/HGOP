@@ -47,6 +47,8 @@ We decided to structure the repository like if a new programmer would be joining
 
 # Week 2  
 ## URL  
-URL to jenkins instance on port 8080 and with username and pw  
+URL to jenkins instance
+URL: http://52.91.141.183:8080
+
 ## Test folder    
 All our unit-test are in a dedicated test folder /game_api/test  

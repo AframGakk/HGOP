@@ -1,26 +1,22 @@
 #!/bin/bash
 
-cd repository
-# Destroying the terraform instance
-terraform destroy -auto-approve
-
-cd ..
 rm -rf repository
 git clone git@github.com:AframGakk/HGOP.git repository
 cd repository
+git checkout $GIT_COMMIT
 
 # Delete all .tf files from /var/lib/jenkins/terraform/hgop/production
-#rm "/var/lib/jenkins/terraform/hgop/production/*.tf"
+rm /var/lib/jenkins/terraform/hgop/production/*.tf
 # Copy all .tf files from repository to /var/lib/jenkins/terraform/hgop/production
-#sudo cp *.tf /var/lib/jenkins/terraform/hgop/production
+cp *.tf /var/lib/jenkins/terraform/hgop/production
 
 #
-
-#cd /var/lib/jenkins/terraform/hgop/production
+cd /var/lib/jenkins/terraform/hgop/production
 
 # Init Terraform
 terraform init
-
+# Destroying the terraform instance
+terraform destroy -auto-approve
 # Apply the instance to AWS via terraform
 terraform apply -auto-approve
 

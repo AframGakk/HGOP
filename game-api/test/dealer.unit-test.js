@@ -24,3 +24,9 @@ test('dealer should should shuffle cards', () => {
     // Assert
     expect(deck).toEqual(['c', 'b', 'a']);
 });
+
+//// TODO:
+//Create at least 2 unit tests for dealer.js - shuffle.
+//Create at least 2 unit tests for dealer.js - draw.
+//Create at least 1 unit tests for deck.js.
+//Create at least 3 unit tests for random.js.

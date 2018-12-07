@@ -74,7 +74,7 @@ module.exports = function(context) {
         }
     });
 
-    // Player makes a guess that the next card will be 21 or under.
+    // Player makes a guess that the next card will be 21 or under..
     app.post('guess21OrUnder', (req, res) => {
         if (game) {
             if (game.isGameOver(game)) {

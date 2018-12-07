@@ -1,5 +1,3 @@
-var { calcCardAce } = require("./ace");
-
 module.exports = (context) => {
     let deckConstructor = context("deck");
     let deck = deckConstructor(context);
@@ -125,7 +123,6 @@ module.exports = (context) => {
             game.state.cards.push(card);
             game.state.card = card;
             game.state.choice = 1;
-        },
-        calcCardAce
+        }
     };
 };

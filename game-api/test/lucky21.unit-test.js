@@ -12,26 +12,6 @@ const gameinit = () => {
     return lucky21Constructor((name) => dependencies[name]);
 };
 
-
-
-test('testing ace import', () => {
-    // Arrange
-    let deck = deckConstructor();
-    deck = [
-        '05C', '01D', '09S', '10H',
-    ];
-    let dealer = dealerConstructor();
-
-    // Override the shuffle to do nothing.
-    dealer.shuffle = (deck) => {};
-
-    // Inject our dependencies
-    let game = gameinit();
-
-    // Assert
-    expect(game.calcCardAce()).toEqual("HELLO");
-});
-
 test('guess21OrUnder should draw the next card', () => {
     // Arrange
     let deck = deckConstructor();

@@ -1,5 +1,7 @@
+var { calcCardAce } = require("./ace");
+
 module.exports = (context) => {
-    let deckConstructor = context('deck');
+    let deckConstructor = context("deck");
     let deck = deckConstructor(context);
 
     let dealerConstructor = context('dealer');
@@ -19,7 +21,6 @@ module.exports = (context) => {
         card: undefined,
         choice: undefined
     };
-
 
 
     let calcCard = (card) => {
@@ -125,5 +126,6 @@ module.exports = (context) => {
             game.state.card = card;
             game.state.choice = 1;
         },
+        calcCardAce
     };
 };

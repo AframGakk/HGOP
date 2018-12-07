@@ -1,30 +1,143 @@
-const express = require("express");
-const database = require("./database.js");
+module.exports = function(context) {
+    const express = context("express");
+    const database = context("database");
+    const configConstructor = context('config');
+    const config = configConstructor(context);
+    const lucky21Constructor = context("lucky21");
 
-var app = express();
+    let app = express();
 
-app.get('/status', (req, res) => {
-    res.statusCode = 200;
-    res.send('The API is running!\n');
-});
-
-//api call to /items which returns a list of the the 10 newest item names.
-app.get('/items', (req, res) => {
-    database.getItems(function (items){
-        var names = items.map(x => x.name);
+    app.get('/status', (req, res) => {
         res.statusCode = 200;
-        res.send(names);
+        res.send('The API is running!\n');
     });
-});
 
-//api call to /items/name which inserts an item to database.
-app.post('/items/:name', (req, res) => {
-    var name = req.params.name;
-    database.insertItem(name, new Date(), function() {
-        var msg = 'item inserted successfully';
-        res.statusCode = 201;
-        res.send(msg);
+    let game = undefined;
+
+    // Starts a new game.
+    app.post('/stats', (req, res) => {
+        database.getTotalNumberOfGames((totalNumberOfGames) => {
+            database.getTotalNumberOfWins((totalNumberOfWins) => {
+                database.getTotalNumberOf21((totalNumberOf21) => {
+                    // Week 3
+                    // TODO Explain why we put each consecutive call inside the onSuccess callback of the
+                    // previous database call, instead of just placing them next to each other.
+                    // E.g.
+                    // database.call1(...);
+                    // database.call2(...);
+                    // database.call3(...);
+                    res.statusCode = 200;
+                    res.send({
+                        totalNumberOfGames: totalNumberOfGames,
+                        totalNumberOfWins: totalNumberOfWins,
+                        totalNumberOf21: totalNumberOf21,
+                    });
+                }, (err) => {
+                    console.log('Failed to get total number of 21, Error:' + JSON.stringify(err));
+                    res.statusCode = 500;
+                    res.send();
+                });
+            }, (err) => {
+                console.log('Failed to get total number of wins, Error:' + JSON.stringify(err));
+                res.statusCode = 500;
+                res.send();
+            });
+        }, (err) => {
+            console.log('Failed to get total number of games, Error:' + JSON.stringify(err));
+            res.statusCode = 500;
+            res.send();
+        });
     });
-})
 
-app.listen(3000);
+    // Starts a new game.
+    app.post('/start', (req, res) => {
+        if (game && game.isGameOver(game) == false) {
+            res.statusCode = 409;
+            res.send('There is already a game in progress');
+        } else {
+            game = lucky21Constructor(context);
+            const msg = 'Game started';
+            res.statusCode = 201;
+            res.send(msg);
+        }
+    });
+
+    // Returns the player's board state.
+    app.get('/state', (req, res) => {
+        if (game) {
+            res.statusCode = 200;
+            res.send(game.getState(game));
+        } else {
+            const msg = 'Game not started'
+            res.statusCode = 204;
+            res.send(msg);
+        }
+    });
+
+    // Player makes a guess that the next card will be 21 or under.
+    app.post('guess21OrUnder', (req, res) => {
+        if (game) {
+            if (game.isGameOver(game)) {
+                const msg = 'Game is already over'
+                res.statusCode = 403;
+                res.send(msg);
+            } else {
+                game.guess21OrUnder(game);
+                if (game.isGameOver(game)) {
+                    const won = game.playerWon(game);
+                    const score = game.getCardsValue(game);
+                    const total = game.getTotal(game);
+                    database.insertResult(won, score, total, () => {
+                        console.log('Game result inserted to database');
+                    }, (err) => {
+                        console.log('Failed to insert game result, Error:' + JSON.stringify(err));
+                    });
+                }
+                res.statusCode = 201;
+                res.send(lucky21.getState(game));
+            }
+        } else {
+            const msg = 'Game not started'
+            res.statusCode = 204;
+            res.send(msg);
+        }
+    });
+
+    // Player makes a guess that the next card will be over 21.
+    app.post('guessOver21', (req, res) => {
+        if (game) {
+            if (game.isGameOver(game)) {
+                const msg = 'Game is already over'
+                res.statusCode = 403;
+                res.send(msg);
+            } else {
+                game.guessOver21(game);
+                if (game.isGameOver(game)) {
+                    const won = game.playerWon(game);
+                    const score = game.getCardsValue(game);
+                    const total = game.getTotal(game);
+                    database.insertResult(won, score, total, () => {
+                        console.log('Game result inserted to database');
+                    }, (err) => {
+                        console.log('Failed to insert game result, Error:' + JSON.stringify(err));
+                    });
+                }
+                res.statusCode = 201;
+                res.send(game.getState(game));
+            }
+        } else {
+            const msg = 'Game not started'
+            res.statusCode = 204;
+            res.send(msg);
+        }
+    });
+
+    const port = config.port;
+    return {
+        listen: () => {
+            app.listen(port, () => {
+                console.log('Game API listening on port ' + port);
+            });
+        }
+    };
+}

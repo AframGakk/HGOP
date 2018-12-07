@@ -32,10 +32,6 @@ node {
             sh "./scripts/docker_push.sh ${git.GIT_COMMIT}"
         }
 
-        stage("deploy") {
-            sh "./scripts/deploy.sh"
-        }
-
-        build job: 'name of deployment job', parameters: [[$class: 'StringParameterValue', name: 'GIT_COMMIT', value: "${git.GIT_COMMIT}"]]
+        build job: 'gameAPI', parameters: [[$class: 'StringParameterValue', name: 'GIT_COMMIT', value: "${git.GIT_COMMIT}"]]
 
 }

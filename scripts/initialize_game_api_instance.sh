@@ -25,10 +25,3 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 # TODO exit 1 if there is no docker-compose.yml file present.
 
-echo 'Starting the API'
-
-#sudo docker-compose up -d
-
-export GIT_COMMIT=$1
-docker-compose down
-docker-compose up -d

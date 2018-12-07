@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# exit the script if any command has an non-zero exit code
+set -e
+
 rm -rf repository
 git clone git@github.com:AframGakk/HGOP.git repository
 cd repository
@@ -39,10 +42,3 @@ echo $GIT_COMMIT
 ssh -o StrictHostKeyChecking=no -i "~/.aws/GameKeyPair.pem" ubuntu@$(terraform output public_ip) "./docker_compose_up.sh $GIT_COMMIT"
 echo Docker compose complete
 
-#TODO exit on error if deployment fails.
-
-#exit 0
-
-
-# execute the command on the new instance via ssh to initialize the web service
-# ssh -o StrictHostKeyChecking=no -i "~/.aws/GameKeyPair.pem" ubuntu@$(terraform output public_ip) "./initialize_game_api_instance.sh"

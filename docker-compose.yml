@@ -1,7 +1,7 @@
 version: '3'
 services:
   my_item_repository:
-    image: ${GIT_COMMIT}
+    image: villirn/hgop:${GIT_COMMIT}
     ports:
     - '3000:3000'
     depends_on:

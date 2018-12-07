@@ -1,11 +1,11 @@
 function newRandom(randomReturnValues) {
     let i = 0;
-    return {
+    return () => ({
         randomInt: (min, max) => {
             let retVal = randomReturnValues[i++];
             return retVal;
         }
-    };
+    });
 }
 
 test('dealer should should shuffle cards', () => {

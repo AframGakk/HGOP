@@ -7,7 +7,7 @@ const gameinit = () => {
     let dependencies = {
         'deck': deckConstructor,
         'dealer': dealerConstructor,
-        'random': randomConstructor(),
+        'random': randomConstructor,
     };
     return lucky21Constructor((name) => dependencies[name]);
 };

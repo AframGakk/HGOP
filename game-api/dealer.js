@@ -5,7 +5,6 @@ module.exports = (context) => {
             const random = randomConst(context);
             for (let i = 0; i < deck.length - 1; i++) {
                 const j = random.randomInt(i, deck.length);
-                //Math.floor(Math.random() * (deck.length - i)) + i;
                 const card = deck[j];
                 const old = deck[i];
                 deck[i] = card;

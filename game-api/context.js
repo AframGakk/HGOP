@@ -6,7 +6,7 @@ const deck = require('./deck.js');
 const dealer = require('./dealer.js');
 const server = require('./server.js');
 const inject = require('./inject.js');
-const random = require('./config.js');
+const config = require('./config.js');
 const random = require('./random.js');
 
 module.exports = {

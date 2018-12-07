@@ -7,11 +7,13 @@ git checkout $GIT_COMMIT
 
 # Delete all .tf files from /var/lib/jenkins/terraform/hgop/production
 rm /var/lib/jenkins/terraform/hgop/production/*.tf
+rm /var/lib/jenkins/terraform/hgop/production/*.yml
 rm -r /var/lib/jenkins/terraform/hgop/production/scripts
 # Copy all .tf files from repository to /var/lib/jenkins/terraform/hgop/production
 mkdir /var/lib/jenkins/terraform/hgop/production/scripts
 cp *.tf /var/lib/jenkins/terraform/hgop/production
-cp /var/lib/jenkins/workspace/HGOP/repository/scripts/initialize_game_api_instance.sh /var/lib/jenkins/terraform/hgop/production/scripts/initialize_game_api_instance.sh
+cp *.yml /var/lib/jenkins/terraform/hgop/production
+cp ./scripts/initialize_game_api_instance.sh /var/lib/jenkins/terraform/hgop/production/scripts/initialize_game_api_instance.sh
 
 #
 cd /var/lib/jenkins/terraform/hgop/production

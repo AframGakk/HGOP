@@ -116,7 +116,10 @@ module.exports = function(context) {
                     const won = game.playerWon(game);
                     const score = game.getCardsValue(game);
                     const total = game.getTotal(game);
-                    database.insertResult(won, score, total, () => {
+
+                    let data = database(context);
+
+                    data.insertResult(won, score, total, () => {
                         console.log('Game result inserted to database');
                     }, (err) => {
                         console.log('Failed to insert game result, Error:' + JSON.stringify(err));
@@ -130,6 +133,12 @@ module.exports = function(context) {
             res.statusCode = 204;
             res.send(msg);
         }
+    });
+
+    // TODO: taka þetta út tester
+    app.get('/some', (req, res) => {
+        let data = database(context);
+        res.send(data.getTotalNumberOf21(() => {}, () => {}));
     });
 
     const port = config.port;

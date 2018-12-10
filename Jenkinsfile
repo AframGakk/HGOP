@@ -40,6 +40,18 @@ node {
             sh "./scripts/docker_push.sh ${git.GIT_COMMIT}"
         }
 
+        stage("API tests") {
+            dir("game-api") {
+                sh "npm run test:api"
+            }
+        }
+
+        stage("Capacity Tests") {
+            dir("game-api") {
+                sh "npm run test:capacity"
+            }
+        }
+
         build job: 'Deployment', parameters: [[$class: 'StringParameterValue', name: 'GIT_COMMIT', value: "${git.GIT_COMMIT}"]]
 
 }

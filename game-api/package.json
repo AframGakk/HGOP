@@ -6,17 +6,12 @@
   "scripts": {
     "test:unit": "jest",
     "test:unit:watch": "jest --watch",
-    "eslint": "./node_modules/eslint/bin/eslint.js .",
-    "test:api": "jest --testRegex ./test/.*.api-test.js"
+    "eslint": "./node_modules/eslint/bin/eslint.js ."
   },
   "jest": {
     "testRegex": "./test/.*.unit-test.js$",
     "collectCoverage": true,
-    "coverageReporters": [
-      "json",
-      "html",
-      "xml"
-    ]
+    "coverageReporters": ["json", "html"]
   },
   "author": "",
   "license": "ISC",
@@ -27,7 +22,6 @@
   "devDependencies": {
     "eslint": "^5.9.0",
     "eslint-config-google": "^0.11.0",
-    "jest": "^23.6.0",
-    "request": "^2.88.0"
+    "jest": "^23.6.0"
   }
 }

@@ -1,3 +1,7 @@
+variable "environment" {
+  type = "string"
+}
+
 # information on the service where the instance is set up. The provider info needs to hold the
 # credential key generated for each user.
 provider "aws" {
@@ -9,7 +13,7 @@ provider "aws" {
 # ports are open on an instance and which protocol is used to communicate to the port. Ingress values are
 # rules for the security group where a rule can open up a port with specific communication style.
  resource "aws_security_group" "game_security_group" {
-  name   = "Jenkins2SecurityGroup"
+  name   = "Jenkins2SecurityGroup_${var.environment}"
 
   ingress {
     from_port   = 22
@@ -41,7 +45,7 @@ resource "aws_instance" "game_server" {
   key_name               = "GameKeyPair"
   vpc_security_group_ids = ["${aws_security_group.game_security_group.id}"]
   tags {
-    Name = "GameServer"
+    Name = "GameServer_${var.environment}"
   }
   # Copies the docker init file to the new instance via ssh with KeyPair authentication.
   provisioner "file" {

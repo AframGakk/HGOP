@@ -58,7 +58,6 @@ module.exports = function(context) {
         // Should call onSuccess with integer.
         getTotalNumberOfGames: (onSuccess, onError) => {
             onSuccess(0)
-            // TODO week 3
             let client = getClient();
             client.connect((err) => {
                 if (err) {
@@ -79,7 +78,6 @@ module.exports = function(context) {
         },
         // Should call onSuccess with integer.
         getTotalNumberOfWins: (onSuccess, onError) => {
-            // TODO week 3
             let client = getClient();
             client.connect((err) => {
                 if (err) {
@@ -101,7 +99,6 @@ module.exports = function(context) {
         },
         // Should call onSuccess with integer.
         getTotalNumberOf21: (onSuccess, onError) => {
-            // TODO week 3
             let client = getClient();
             client.connect((err) => {
                 if (err) {

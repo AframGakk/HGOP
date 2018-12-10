@@ -137,12 +137,6 @@ module.exports = function(context) {
         }
     });
 
-    // TODO: taka þetta út tester
-    app.get('/some', (req, res) => {
-        let data = database(context);
-        res.send(data.getTotalNumberOf21(() => {}, () => {}));
-    });
-
     const port = config.port;
     return {
         listen: () => {

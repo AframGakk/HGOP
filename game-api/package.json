@@ -12,8 +12,7 @@
   },
   "jest": {
     "testRegex": "./test/.*.unit-test.js$",
-    "collectCoverage": true,
-    "coverageReporters": ["json", "html"]
+    "collectCoverage": true
   },
   "author": "",
   "license": "ISC",

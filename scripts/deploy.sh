@@ -3,9 +3,6 @@
 # exit the script if any command has an non-zero exit code
 #set -e
 
-rm -rf repository
-git clone git@github.com:AframGakk/HGOP.git repository
-cd repository
 git checkout $GIT_COMMIT
 
 # Delete all .tf files from /var/lib/jenkins/terraform/hgop/production
@@ -23,9 +20,6 @@ cp ./scripts/docker_compose_up.sh /var/lib/jenkins/terraform/hgop/production/scr
 #
 cd /var/lib/jenkins/terraform/hgop/production
 
-# Destroying the terraform instance
-terraform destroy -auto-approve
-
 # Init Terraform
 terraform init
 
@@ -34,11 +28,7 @@ terraform apply -auto-approve
 
 echo "Game API running at " + $(terraform output public_ip)
 
-echo Running initialize script
 ssh -o StrictHostKeyChecking=no -i "~/.aws/GameKeyPair.pem" ubuntu@$(terraform output public_ip) "./initialize_game_api_instance.sh"
-echo Initialize complete
-echo Running Docker Compose Up
-echo $GIT_COMMIT
 ssh -o StrictHostKeyChecking=no -i "~/.aws/GameKeyPair.pem" ubuntu@$(terraform output public_ip) "./docker_compose_up.sh $GIT_COMMIT"
-echo Docker compose complete
+
 

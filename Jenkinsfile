@@ -12,7 +12,6 @@ node {
                 sh 'npm install eslint-config-google --save-dev'
                 sh 'npm install jest --save-dev'
             }
-
         }
 
         stage("lint") {
@@ -40,8 +39,8 @@ node {
             sh "./scripts/docker_push.sh ${git.GIT_COMMIT}"
         }
 
-        build job: 'Api-Test', parameters: [[$class: 'StringParameterValue', name: 'API_URL', value: "http://localhost:3000 && npm run test:api"]]
-        build job: 'Capacity-Test', parameters: [[$class: 'StringParameterValue', name: 'API_URL', value: "http://localhost:3000 && npm run test:capacity"]]
+        build job: 'Api-Test', parameters: [[$class: 'StringParameterValue', name: 'API_URL', value: "http://localhost:3000 && npm run test:api"], [$class: 'StringParameterValue', name: 'GIT_COMMIT', value: "{git.GIT_COMMIT}"]]
+        build job: 'Capacity-Test', parameters: [[$class: 'StringParameterValue', name: 'API_URL', value: "http://localhost:3000 && npm run test:capacity"], [$class: 'StringParameterValue', name: 'GIT_COMMIT', value: "{git.GIT_COMMIT}"]]
         build job: 'Deployment', parameters: [[$class: 'StringParameterValue', name: 'GIT_COMMIT', value: "${git.GIT_COMMIT}"]]
 
 }

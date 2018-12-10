@@ -16,9 +16,10 @@ module.exports = function(context) {
 
     // Starts a new game.
     app.post('/stats', (req, res) => {
-        database.getTotalNumberOfGames((totalNumberOfGames) => {
-            database.getTotalNumberOfWins((totalNumberOfWins) => {
-                database.getTotalNumberOf21((totalNumberOf21) => {
+        let data = database(context);
+        data.getTotalNumberOfGames((totalNumberOfGames) => {
+            data.getTotalNumberOfWins((totalNumberOfWins) => {
+                data.getTotalNumberOf21((totalNumberOf21) => {
                     // Week 3
                     // TODO Explain why we put each consecutive call inside the onSuccess callback of the
                     // previous database call, instead of just placing them next to each other.
@@ -84,10 +85,11 @@ module.exports = function(context) {
             } else {
                 game.guess21OrUnder(game);
                 if (game.isGameOver(game)) {
+                    let data = database(context);
                     const won = game.playerWon(game);
                     const score = game.getCardsValue(game);
                     const total = game.getTotal(game);
-                    database.insertResult(won, score, total, () => {
+                    data.insertResult(won, score, total, () => {
                         console.log('Game result inserted to database');
                     }, (err) => {
                         console.log('Failed to insert game result, Error:' + JSON.stringify(err));

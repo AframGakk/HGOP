@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+cd /var/lib/jenkins/workspace/HGOP
+
 mkdir /var/lib/jenkins/terraform/hgop/capacitytest
 mkdir /var/lib/jenkins/terraform/hgop/capacitytest/scripts
 cp *.tf /var/lib/jenkins/terraform/hgop/capacitytest

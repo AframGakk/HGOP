@@ -3,6 +3,8 @@
 # exit the script if any command has an non-zero exit code
 #set -e
 
+cd /var/lib/jenkins/workspace/HGOP
+
 git checkout $GIT_COMMIT
 
 # Delete all .tf files from /var/lib/jenkins/terraform/hgop/production

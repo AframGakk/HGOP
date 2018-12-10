@@ -6,7 +6,8 @@
   "scripts": {
     "test:unit": "jest",
     "test:unit:watch": "jest --watch",
-    "eslint": "./node_modules/eslint/bin/eslint.js ."
+    "eslint": "./node_modules/eslint/bin/eslint.js .",
+    "test:api": "jest --testRegex ./test/.*.api-test.js"
   },
   "jest": {
     "testRegex": "./test/.*.unit-test.js$",

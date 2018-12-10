@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cd /var/lib/jenkins/workspace/HGOP
+cd /var/lib/jenkins/workspace/HGOP/repository
 
 mkdir /var/lib/jenkins/terraform/hgop/capacitytest
 mkdir /var/lib/jenkins/terraform/hgop/capacitytest/scripts

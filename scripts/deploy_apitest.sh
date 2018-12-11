@@ -16,13 +16,13 @@ cp ./scripts/docker_compose_up.sh /var/lib/jenkins/terraform/hgop/apitest/script
 cd /var/lib/jenkins/terraform/hgop/apitest
 
 # Destroying the terraform instance
-terraform destroy -auto-approve -var environment=production || exit 1
+terraform destroy -auto-approve -var environment=apitest || exit 1
 
 # Init Terraform
 terraform init
 
 # Apply the instance to AWS via terraform
-terraform apply -auto-approve -var environment=production || exit 1
+terraform apply -auto-approve -var environment=apitest || exit 1
 
 ssh -o StrictHostKeyChecking=no -i "~/.aws/GameKeyPair.pem" ubuntu@$(terraform output public_ip) "./initialize_game_api_instance.sh"
 ssh -o StrictHostKeyChecking=no -i "~/.aws/GameKeyPair.pem" ubuntu@$(terraform output public_ip) "./docker_compose_up.sh $GIT_COMMIT"

@@ -1,0 +1,13 @@
+{
+  "pg": {
+    "driver": "pg",
+    "host": "my_postgres_container",
+    "database": "game_database",
+    "user": "game",
+    "password": "12345",
+    "schema": "postgres",
+    "port": 5432,
+    "max": 10,
+    "idleTimeoutMillis": 30000
+  }
+}

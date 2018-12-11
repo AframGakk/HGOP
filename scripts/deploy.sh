@@ -26,7 +26,7 @@ cd /var/lib/jenkins/terraform/hgop/production
 terraform init
 
 # Apply the instance to AWS via terraform
-terraform apply -auto-approve
+terraform apply -auto-approve -var environment=production || exit 1
 
 echo "Game API running at " + $(terraform output public_ip)
 

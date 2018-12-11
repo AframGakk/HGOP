@@ -9,19 +9,19 @@ var seed;
   * This enables us to not have to rely on NODE_PATH.
   */
 exports.setup = function(options, seedLink) {
-  dbm = options.dbmigrate;
-  type = dbm.dataType;
-  seed = seedLink;
+    dbm = options.dbmigrate;
+    type = dbm.dataType;
+    seed = seedLink;
 };
 
 exports.up = function(db) {
-  return null;
+    return null;
 };
 
 exports.down = function(db) {
-  return null;
+    return null;
 };
 
 exports._meta = {
-  "version": 1
+    "version": 1
 };

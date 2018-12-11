@@ -13,6 +13,8 @@ module.exports = function(context) {
     }
 
     let client = getClient();
+
+
     client.connect((err) => {
         if (err) {
             console.log('failed to connect to postgres!');

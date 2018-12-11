@@ -16,7 +16,7 @@ cp ./scripts/docker_compose_up.sh /var/lib/jenkins/terraform/hgop/apitest/script
 cd /var/lib/jenkins/terraform/hgop/apitest
 
 # Destroying the terraform instance
-terraform destroy -auto-approve -var environment=apitest || exit 1
+#terraform destroy -auto-approve -var environment=apitest || exit 1
 
 # Init Terraform
 terraform init

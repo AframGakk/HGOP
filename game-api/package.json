@@ -8,7 +8,8 @@
     "test:unit:watch": "jest --watch",
     "eslint": "./node_modules/eslint/bin/eslint.js .",
     "test:api": "jest --testRegex ./test/.*.api-test.js",
-    "test:capacity": "jest --testRegex ./test/.*.capacity-test.js"
+    "test:capacity": "jest --testRegex ./test/.*.capacity-test.js",
+    "migratedb:pg": "db-migrate --verbose --env pg --config ./database.json --migrations-dir ./migrations up"
   },
   "jest": {
     "testRegex": "./test/.*.unit-test.js$",

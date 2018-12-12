@@ -7,6 +7,7 @@ services:
     depends_on:
     - my_postgres_container
     environment:
+      POSTGRES_HOST: 'my_postgres_container'
       POSTGRES_DB: 'game_database'
       POSTGRES_USER: 'game'
       POSTGRES_PASSWORD: '12345'

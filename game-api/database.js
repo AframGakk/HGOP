@@ -46,7 +46,7 @@ module.exports = function(context) {
                 } else {
 
                     const query = {
-                        text: 'INSERT INTO GameResult(Won, Score, Total, InsertDate) VALUES($1, $2, $3, CURRENT_TIMESTAMP);',
+                        text: 'INSERT INTO "GameResult" ("Won", "Score", "Total", "InsertDate") VALUES($1, $2, $3, CURRENT_TIMESTAMP)',
                         values: [won, score, total],
                     }
                     client.query(query, (err) => {

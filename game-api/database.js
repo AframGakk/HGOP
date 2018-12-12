@@ -22,20 +22,6 @@ module.exports = function(context) {
             }
         });
     }, 2000);
-
-
-    /*
-            client.query('CREATE TABLE IF NOT EXISTS GameResult(ID SERIAL PRIMARY KEY, Won BOOL NOT NULL, Score INT NOT NULL, Total INT NOT NULL, InsertDate TIMESTAMP NOT NULL);', (err) => {
-                if (err) {
-                    console.log('error creating game result table!')
-                } else {
-                    console.log('successfully created game result table!')
-                }
-                client.end();
-            });
-    */
-
-
     return {
         insertResult: (won, score, total, onSuccess, onError) => {
             let client = getClient();
@@ -62,67 +48,79 @@ module.exports = function(context) {
             });
             return;
         },
+        //So how the queries were before, dident get me the right result from capacity test
+        //There for i changed them to be more like insertResult here above
         // Should call onSuccess with integer.
         getTotalNumberOfGames: (onSuccess, onError) => {
-            onSuccess(0)
-            let client = getClient();
+            const client = getClient();
             client.connect((err) => {
                 if (err) {
                     onError(err);
                     client.end();
                 } else {
-                    client.query('SELECT count(Total) FROM GameResult;', (err, res) => {
+                    const query = {
+                        text: `SELECT COUNT("Total") FROM "GameResult";`,
+                    };
+                    client.query(query, (err, res) => {
                         if (err) {
                             console.log("Error in query:");
-                            console.log(err);
+                            onError();
                         } else {
                             onSuccess(res.rows[0].count);
-                            client.end();
                         }
+                        client.end();
                     });
                 }
             });
+            return;
         },
         // Should call onSuccess with integer.
         getTotalNumberOfWins: (onSuccess, onError) => {
-            let client = getClient();
+            const client = getClient();
             client.connect((err) => {
                 if (err) {
                     onError(err);
                     client.end();
                 } else {
-
-                    client.query('SELECT count(Total) FROM GameResult WHERE won = true;', (err, res) => {
+                    const query = {
+                        text: `SELECT COUNT(*) FROM "GameResult" WHERE "Won"=true;`,
+                    };
+                    client.query(query, (err, res) => {
                         if (err) {
                             console.log("Error in query:");
-                            console.log(err);
+                            onError();
                         } else {
                             onSuccess(res.rows[0].count);
-                            client.end();
                         }
+                        client.end();
                     });
                 }
             });
+            return;
         },
         // Should call onSuccess with integer.
         getTotalNumberOf21: (onSuccess, onError) => {
-            let client = getClient();
+            const client = getClient();
             client.connect((err) => {
                 if (err) {
                     onError(err);
                     client.end();
                 } else {
-                    client.query('SELECT count(Total) FROM GameResult WHERE total = 21;', (err, res) => {
+                    const query = {
+                        text: `SELECT COUNT(*) FROM "GameResult" WHERE "Score"=21;`,
+                    };
+                    client.query(query, (err, res) => {
                         if (err) {
                             console.log("Error in query:");
-                            console.log(err);
+                            onError();
                         } else {
                             onSuccess(res.rows[0].count);
-                            client.end();
                         }
+                        client.end();
                     });
                 }
             });
-        }
-    }
-}
+            return;
+        },
+    };
+};

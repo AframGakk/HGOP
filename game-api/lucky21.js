@@ -1,138 +1,79 @@
+//copied lucky21 from solutions, our had some kind of logic problem
 module.exports = (context) => {
-    let deckConstructor = context("deck");
-    let deck = deckConstructor(context);
-
-    let dealerConstructor = context('dealer');
-    let dealer = dealerConstructor(context);
+    const deckConstructor = context('deck');
+    const deck = deckConstructor(context);
+    const dealerConstructor = context('dealer');
+    const dealer = dealerConstructor(context);
 
     dealer.shuffle(deck);
-    let card0 = dealer.draw(deck);
-    let card1 = dealer.draw(deck);
-    let state = {
-        deck: deck,
-        dealer: dealer,
-        cards: [
-            card0,
-            card1,
-        ],
-        // The card that the player thinks will exceed 21.
-        card: undefined,
-        // The choice each time makes easier to run in state environment
-        choice: undefined
-    };
-
-    // calculates the value of one card (checks sum for eval of an ace)
-    let calcCard = (card, sum) => {
-        let number = card.substring(0, 2);
-
-        if(parseInt(number) < 10 && parseInt(number) > 1) {
-            return parseInt(number);
-        } else if (parseInt(number) == 1) {
-            if ((sum + 11) > 20) {
-                return 1;
-            } else {
-                return 11;
-            }
-        } else {
-            return 10;
-        }
-    };
-
-    // returns the sum of the hand
-    let getHandSum = () => {
-        let sum = 0;
-        state.cards.forEach((item) => {
-            sum += calcCard(item, sum);
-        });
-        return sum;
-    };
+    const card0 = dealer.draw(deck);
+    const card1 = dealer.draw(deck);
 
     return {
-        state: state,
-        // Is the game over (true or false).
+        state: {
+            deck: deck,
+            dealer: dealer,
+            cards: [card0, card1],
+            card: undefined,
+        },
         isGameOver: (game) => {
-            return getHandSum() > 21;
+            return game.state.card !== undefined
+            || game.getTotal(game) >= 21;
         },
-        // Has the player won (true or false).
         playerWon: (game) => {
-            if(game.state.choice == 0) {
-                if(getHandSum() <= 21) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                if(getHandSum() > 21) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
+            return (game.state.card !== undefined && game.getTotal(game) > 21)
+            || game.getCardsValue(game) == 21;
         },
-        // The highest score the cards can yield without going over 21 (integer).
         getCardsValue: (game) => {
-            let sum = getHandSum();
+            let cardsValue = 0;
 
-            if (sum >= 21) {
-                return 0;
+            // count everything and treat all aces as 1.
+            for (let i = 0; i < game.state.cards.length; i++) {
+                const cardValue = parseInt(game.state.cards[i].substring(0, 2));
+                cardsValue += Math.min(cardValue, 10);
             }
 
-            for (let i = 1; i < 11; i++) {
-                if((sum + i) == 21) {
-                    return 21;
+            // foreach ace check if we can add 10.
+            for (let i = 0; i < game.state.cards.length; i++) {
+                const cardValue = parseInt(game.state.cards[i].substring(0, 2));
+                if (cardValue == 1) {
+                    if (cardsValue + 10 <= 21) {
+                        cardsValue += 10;
+                    }
                 }
             }
 
-            return (sum + 11);
+            return cardsValue;
         },
-        // The value of the card that should exceed 21 if it exists (integer or undefined).
         getCardValue: (game) => {
-            let sum = getHandSum();
-            if (sum >= 21) {
-                return undefined;
-            }
+            const card = game.state.card;
+            if (card === undefined) return card;
 
-            for (let i = 1; i < 11; i++) {
-                if((sum + i) == 22) {
-                    return i;
-                }
-            }
-
-            return 11;
+            const cardValue = parseInt(card.substring(0, 2));
+            return Math.min(cardValue, 10);
         },
         getTotal: (game) => {
-            return getHandSum();
+            return game.getCardsValue(game) + (game.getCardValue(game) || 0);
         },
-        // The player's cards (array of strings)..
-        getCards: (game) => {
-            return game.state.cards;
-        },
-        // The player's card (string or undefined).
-        getCard: (game) => {
-            return game.state.card;
-        },
-        // Player action (void).
+        getCards: (game) => game.state.cards,
+        getCard: (game) => game.state.card,
         guess21OrUnder: (game) => {
-            let card = dealer.draw(game.state.deck);
-            game.state.cards.push(card);
-            game.state.card = card;
-            game.state.choice = 0;
+            const nextCard = dealer.draw(game.state.deck);
+            game.state.cards.push(nextCard);
         },
-        // Player action (void).
         guessOver21: (game) => {
-            let card = dealer.draw(game.state.deck);
-            game.state.cards.push(card);
-            game.state.card = card;
-            game.state.choice = 1;
+            const nextCard = dealer.draw(game.state.deck);
+            game.state.card = nextCard;
         },
         getState: (game) => {
             return {
-                cards: game.getCards(game),
-                card: game.getCard(game),
-                finished: game.isGameOver(game),
+                cards: game.state.cards,
+                cardsValue: game.getCardsValue(game),
+                card: game.state.card,
+                cardValue: game.getCardValue(game),
                 total: game.getTotal(game),
-                player_won: game.playerWon(game)
-            }
-        }
+                gameOver: game.isGameOver(game),
+            };
+        },
     };
 };

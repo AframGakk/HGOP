@@ -1,11 +1,17 @@
 module.exports = function(context) {
     const express = context("express");
-    const database = context("database");
+    const databaseConstructor = context("database");
+    const database = databaseConstructor(context);
     const configConstructor = context('config');
     const config = configConstructor(context);
-    const lucky21Constructor = context("lucky21");
+    const lucky21Constructor = context("lucky21")
 
     let app = express();
+
+    app.use((req, res, next) => {
+        res.header('Access-Control-Allow-Origin', '*');
+        next();
+    });
 
     app.get('/status', (req, res) => {
         res.statusCode = 200;
@@ -15,11 +21,10 @@ module.exports = function(context) {
     let game = undefined;
 
     // Starts a new game.
-    app.post('/stats', (req, res) => {
-        let data = database(context);
-        data.getTotalNumberOfGames((totalNumberOfGames) => {
-            data.getTotalNumberOfWins((totalNumberOfWins) => {
-                data.getTotalNumberOf21((totalNumberOf21) => {
+    app.get('/stats', (req, res) => {
+        database.getTotalNumberOfGames((totalNumberOfGames) => {
+            database.getTotalNumberOfWins((totalNumberOfWins) => {
+                database.getTotalNumberOf21((totalNumberOf21) => {
                     res.statusCode = 200;
                     res.send({
                         totalNumberOfGames: totalNumberOfGames,
@@ -78,18 +83,17 @@ module.exports = function(context) {
             } else {
                 game.guess21OrUnder(game);
                 if (game.isGameOver(game)) {
-                    let data = database(context);
                     const won = game.playerWon(game);
                     const score = game.getCardsValue(game);
                     const total = game.getTotal(game);
-                    data.insertResult(won, score, total, () => {
+                    database.insertResult(won, score, total, () => {
                         console.log('Game result inserted to database');
                     }, (err) => {
                         console.log('Failed to insert game result, Error:' + JSON.stringify(err));
                     });
                 }
                 res.statusCode = 201;
-                res.send(lucky21.getState(game));
+                res.send(game.getState(game));
             }
         } else {
             const msg = 'Game not started'
@@ -111,10 +115,7 @@ module.exports = function(context) {
                     const won = game.playerWon(game);
                     const score = game.getCardsValue(game);
                     const total = game.getTotal(game);
-
-                    let data = database(context);
-
-                    data.insertResult(won, score, total, () => {
+                    database.insertResult(won, score, total, () => {
                         console.log('Game result inserted to database');
                     }, (err) => {
                         console.log('Failed to insert game result, Error:' + JSON.stringify(err));
@@ -138,4 +139,4 @@ module.exports = function(context) {
             });
         }
     };
-}
+};

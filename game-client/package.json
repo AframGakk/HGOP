@@ -1,0 +1,32 @@
+{
+  "name": "lucky-21-frontend",
+  "version": "1.0.0",
+  "description": "Minimalistic front-end",
+  "main": "index.js",
+  "scripts": {
+    "start": "cp -R cards dist && node index.js",
+    "build": "cp -R cards dist && parcel build ./src/index.html --public-url ./",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hgop/lucky-21-frontend.git"
+  },
+  "author": "kthorri",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hgop/lucky-21-frontend/issues"
+  },
+  "homepage": "https://github.com/hgop/lucky-21-frontend#readme",
+  "devDependencies": {
+    "parcel-bundler": "1.10.3"
+  },
+  "dependencies": {
+    "axios": "0.18.0",
+    "express": "^4.16.4",
+    "http-proxy-middleware": "^0.19.1",
+    "react": "16.6.3",
+    "react-dom": "16.6.3",
+    "react-poker": "0.0.77"
+  }
+}

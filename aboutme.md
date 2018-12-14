@@ -1,5 +1,6 @@
 # About us
 
+<img src="resources/img/DataDogBashboard.jpg" width="300" height="300"></img>
 <img src="resources/img/ivar.jpg" width="150" height="150"></img>
 ## Ívar Kristinn Hallsson  
   * Where you grew up      

@@ -6,7 +6,7 @@ module.exports = function(context) {
     const config = configConstructor(context);
     const lucky21Constructor = context("lucky21");
     var StatsD = require('hot-shots');
-    var client = new StatsD();
+    var client = new StatsD({ host: 'my_datadog_container'});
 
     let app = express();
 

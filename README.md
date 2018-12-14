@@ -41,16 +41,16 @@ To check the running instance enter in terminal:
 ### Extra things added
 We decided to structure the repository like if a new programmer would be joining us. Therefore in this readme document you can find the steps of building and setting up the environment. In extra of verifying the environment with a script we also made an extra script which will install all dependancies needed for the project for you. The install script can be run separately or if the verify_enviroment script is ran, the script asks whether you want to run the install script if it did not found some dependancy. Note that the install script is modified for both OSX (darwin) and Linux.
 
-# Week 2 & 3 solutions
-## URL  
+## Week 2 & 3 solutions
+### URL  
 URL to jenkins instance
 URL: http://52.91.141.183:8080
 
-## Test folder    
+### Test folder    
 All our unit-test are in a dedicated test folder /game_api/test  
 
-## DataDogBashboard  
+### Screenshot of our DataDogBashboard   
+![Screenshot of DatadogBashboard](DataDogDashb.png)  
 Hrafn is part of our DataDog team.  
-![Screenshot of DatadogBashboard](DataDogDashb.png)
 
 

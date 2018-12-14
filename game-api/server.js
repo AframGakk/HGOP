@@ -6,8 +6,7 @@ module.exports = function(context) {
     const config = configConstructor(context);
     const lucky21Constructor = context("lucky21");
     var StatsD = require('hot-shots');
-    var totalGames = new StatsD({ host: 'my_datadog_container'});
-    var runningGames = new StatsD({ host: 'my_datadog_container'});
+    var client = new StatsD({ host: 'my_datadog_container'});
 
     let app = express();
 
@@ -57,8 +56,8 @@ module.exports = function(context) {
             res.statusCode = 409;
             res.send('There is already a game in progress');
         } else {
-            totalGames.increment('games.started');
-            runningGames.increment('games.running');
+            client.increment('games.started');
+            client.increment('games.running');
             game = lucky21Constructor(context);
             const msg = 'Game started';
             res.statusCode = 201;
@@ -88,7 +87,7 @@ module.exports = function(context) {
             } else {
                 game.guess21OrUnder(game);
                 if (game.isGameOver(game)) {
-                    runningGames.decrement('games.running');
+                    client.decrement('games.running');
                     const won = game.playerWon(game);
                     const score = game.getCardsValue(game);
                     const total = game.getTotal(game);

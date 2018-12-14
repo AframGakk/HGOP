@@ -70,7 +70,7 @@ module.exports = function(context) {
             res.statusCode = 200;
             res.send(game.getState(game));
         } else {
-            const msg = 'Game not started'
+            const msg = 'Game not started';
             res.statusCode = 204;
             res.send(msg);
         }

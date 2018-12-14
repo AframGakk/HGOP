@@ -3,414 +3,237 @@ const dealerConstructor = require('../dealer.js');
 const lucky21Constructor = require('../lucky21.js');
 const randomConstructor = require('../random.js');
 
-const gameinit = () => {
-    let dependencies = {
-        'deck': deckConstructor,
-        'dealer': dealerConstructor,
-        'random': randomConstructor,
+const newGame = (deck) => {
+    const random = randomConstructor();
+    const dealerDependencies = {
+        'random': (context) => random,
+    };
+    const dealer = dealerConstructor((name) => dealerDependencies[name]);
+    dealer.shuffle = (deck) => { };
+
+    const dependencies = {
+        'deck': () => deck || deckConstructor(),
+        'dealer': () => dealer,
     };
     return lucky21Constructor((name) => dependencies[name]);
 };
 
-// a mock of shuffle where the last element is switched with the first
-const shuffleMock = (deck) => {
-    let tmp = deck[0];
-    deck[0] = deck[deck.length - 1];
-    deck[deck.length - 1] = tmp;
-    return deck;
-}
+describe('game - context construction', () => {
+    test('should construct a new game', () => {
+        const context = require('../context.js').newContext();
 
-test('guess21OrUnder should draw the next card', () => {
-    // Arrange
-    let deck = [
-        '05C', '01D', '09S', '10H'
-    ];
+        const gameConstructor = context('lucky21');
 
-    // Inject our dependencies
-    let game = gameinit();
+        const game = gameConstructor(context);
 
-    // remove 2 first cards from deck since gameinit has done it
-    deck.pop();
-    deck.pop();
-    game.state.deck = deck;
-
-    // Override the shuffle to do nothing.
-    //game.state.dealer.shuffle = shuffleMock;
-
-    // Act
-    game.guess21OrUnder(game);
-
-    // Assert
-    expect(game.state.cards.length).toEqual(3);
-    expect(game.state.cards[2]).toEqual('01D');
+        expect(game).not.toEqual(50);
+    });
 });
 
-test('Should give the highest value possible as 21', () => {
-    // Arrange
-    let deck = [ '02C', '06D', '08S', '05H' ];
+describe('game - constructor', () => {
+    test('should have 50 cards left in the deck', () => {
+        const game = newGame(undefined);
 
-    let game = gameinit();
+        expect(game.state.deck.length).toEqual(50);
+    });
 
-    // setting up constant test environment state
-    game.state.cards = [];
-    game.state.cards.push(deck.pop());
-    game.state.cards.push(deck.pop());
-    game.state.deck = deck;
-    game.state.dealer.shuffle = (deck) => {};
+    test('should have 2 cards drawn', () => {
+        const game = newGame();
 
-    // Assert
-    expect(game.state.cards).toEqual(["05H", "08S"]);
-    expect(game.getCardsValue(game)).toEqual(21);
+        expect(game.state.cards.length).toEqual(2);
+    });
 });
 
-test('Should give the highest value possible as 15', () => {
-    // Arrange
-    let deck = [ '02C', '06D', '02S', '02H' ];
+describe('game - isGameOver', () => {
+    test('should be true when the player guesses 21 or under wrong', () => {
+        const game = newGame(['03H', '01H', '12H', '09H']);
 
-    let game = gameinit();
+        game.guess21OrUnder(game);
+        game.guess21OrUnder(game);
 
-    // setting up constant test environment state
-    game.state.cards = [];
-    game.state.cards.push(deck.pop());
-    game.state.cards.push(deck.pop());
-    game.state.deck = deck;
-    game.state.dealer.shuffle = (deck) => {};
+        expect(game.isGameOver(game)).toEqual(true);
+    });
 
-    // Assert
-    expect(game.state.cards).toEqual(["02H", "02S"]);
-    expect(game.getCardsValue(game)).toEqual(15);
+    test('should be true when the player guesses over 21 right', () => {
+        const game = newGame(['10H', '12H', '09H']);
+
+        game.guessOver21(game);
+
+        expect(game.isGameOver(game)).toEqual(true);
+    });
+
+    test('should be true if the player has lucky 21', () => {
+        const game = newGame(['01H', '13H']);
+
+        expect(game.isGameOver(game)).toEqual(true);
+    });
+
+    test('should be false if the player is under 21', () => {
+        const game = newGame(['12H', '13H']);
+
+        expect(game.isGameOver(game)).toEqual(false);
+    });
 });
 
-test('Player gets ace at draw, the ace should give 1 since 11 exceeds 21', () => {
-    // Arrange
-    let deck = [ '02C', '01D', '07S', '08H' ];
+describe('game - playerWon', () => {
+    test('should be true if the player guessed over 21 correctly', () => {
+        const game = newGame(['10H', '12H', '09H']);
 
-    let game = gameinit();
+        game.guessOver21(game);
 
-    // setting up constant test environment state
-    game.state.cards = [];
-    game.state.cards.push(deck.pop());
-    game.state.cards.push(deck.pop());
-    game.state.deck = deck;
-    game.state.dealer.shuffle = (deck) => {};
+        expect(game.playerWon(game)).toEqual(true);
+    });
 
-    // Act
-    game.guess21OrUnder(game);
+    test('should be false if the player guesses 21 or under correctly', () => {
+        const game = newGame(['03H', '04H', '06H']);
 
-    // Assert
-    expect(game.getTotal(game)).toEqual(16);
+        game.guess21OrUnder(game);
+
+        expect(game.playerWon(game)).toEqual(false);
+    });
 });
 
-// test for winning if under 21
-test('Player should have won after choosing under 21', () => {
-    // Arrange
-    let deck = [ '02C', '02D', '07S', '08H' ];
+describe('game - getCardsValue', () => {
+    test('should be 14 for [ 3, 6, 5 ]', () => {
+        const game = newGame(['03H', '06C', '05D']);
 
-    let game = gameinit();
+        game.guess21OrUnder(game);
 
-    // setting up constant test environment state
-    game.state.cards = [];
-    game.state.cards.push(deck.pop());
-    game.state.cards.push(deck.pop());
-    game.state.deck = deck;
-    game.state.dealer.shuffle = (deck) => {};
+        expect(game.getCardsValue(game)).toEqual(14);
+    });
 
-    // Act
-    game.guess21OrUnder(game);
+    test('should return 14 for [ Q, 9, A ]', () => {
+        const game = newGame(['12H', '09H', '01H']);
 
-    // Assert
-    expect(game.playerWon(game)).toBeTruthy();
+        game.guess21OrUnder(game);
+
+        expect(game.getCardsValue(game)).toEqual(20);
+    });
+
+    test('should return 14 for [ A, A, A, A ]', () => {
+        const game = newGame(['01H', '01C', '01D', '01S']);
+
+        game.guess21OrUnder(game);
+        game.guess21OrUnder(game);
+
+        expect(game.getCardsValue(game)).toEqual(14);
+    });
+
+    test('should return 20 for [ A, Q, 9 ]', () => {
+        const game = newGame(['01H', '12H', '9H']);
+
+        game.guess21OrUnder(game);
+
+        expect(game.getCardsValue(game)).toEqual(20);
+    });
+
+    test('should return 12 for [ 10, A, A ]', () => {
+        const game = newGame(['10H', '01S', '01H']);
+
+        game.guess21OrUnder(game);
+
+        expect(game.getCardsValue(game)).toEqual(12);
+    });
 });
 
-test('Player should have lost after choosing under 21 and he busts', () => {
-    // Arrange
-    let deck = [ '02C', '09D', '07S', '08H' ];
+describe('game - getCardValue', () => {
+    test('should return undefined if the player has not made a over 21 guess yet', () => {
+        const game = newGame();
+        expect(game.getCardValue(game)).toEqual(undefined);
+    });
 
-    let game = gameinit();
+    test('should returns 10 if card is a Jack', () => {
+        const game = newGame(['11H', '12H', '13H']);
 
-    // setting up constant test environment state
-    game.state.cards = [];
-    game.state.cards.push(deck.pop());
-    game.state.cards.push(deck.pop());
-    game.state.deck = deck;
-    game.state.dealer.shuffle = (deck) => {};
+        game.guessOver21(game);
 
-    // Act
-    game.guess21OrUnder(game);
+        expect(game.getCardValue(game)).toEqual(10);
+    });
 
-    // Assert
-    expect(game.playerWon(game)).toBeFalsy();
+    test('should return 1 if card is ace', () => {
+        const game = newGame(['01H', '12H', '13H']);
+
+        game.guessOver21(game);
+
+        expect(game.getCardValue(game)).toEqual(1);
+    });
 });
 
-test('Game should be over since the cards value are 25', () => {
-    // Arrange
-    let deck = [ '02C', '05D', '10S', '11H' ];
+describe('game - getTotal', () => {
+    test('should return 14 for 5 + [ 3, 6 ]', () => {
+        const game = newGame(['05H', '03H', '06C']);
 
-    let game = gameinit();
+        game.guessOver21(game);
 
-    // setting up constant test environment state
-    game.state.cards = [];
-    game.state.cards.push(deck.pop());
-    game.state.cards.push(deck.pop());
-    game.state.deck = deck;
-    game.state.dealer.shuffle = (deck) => {};
+        expect(game.getTotal(game)).toEqual(14);
 
-    // Act
-    game.guess21OrUnder(game);
+    });
 
-    // Assert
-    expect(game.isGameOver(game)).toBeTruthy();
+    test('should return 9 for undefined + [ 3, 6 ]', () => {
+        const game = newGame(['03H', '06C']);
+
+        expect(game.getTotal(game)).toEqual(9);
+    });
+
+    test('should return 21 for A + [ A, Q, 9 ]', () => {
+        const game = newGame(['01C', '01H', '12H', '09H']);
+
+        game.guess21OrUnder(game);
+        game.guessOver21(game);
+
+        expect(game.getTotal(game)).toEqual(21);
+    });
 });
 
-test('Game should not be finished since the card value is 19', () => {
-    // Arrange
-    let deck = [ '02C', '05D', '08S', '06H' ];
-
-    let game = gameinit();
-
-    // setting up constant test environment state
-    game.state.cards = [];
-    game.state.cards.push(deck.pop());
-    game.state.cards.push(deck.pop());
-    game.state.deck = deck;
-    game.state.dealer.shuffle = (deck) => {};
-
-    // Act
-    game.guess21OrUnder(game);
-
-    // Assert
-    expect(game.isGameOver(game)).toBeFalsy();
+describe('game - getCards', () => {
+    test('should return the cards', () => {
+        const game = newGame();
+        expect(game.getCards(game)).toBe(game.state.cards);
+    });
 });
 
-test('Game state should return card 10 since the cards sum is 12 because a card 10 will exceed 21', () => {
-    // Arrange
+describe('game - getCard', () => {
+    test('should return the card', () => {
+        const game = newGame();
 
-    let deck = [ '02C', '05D', '04S', '08H' ];
+        game.guessOver21(game);
 
-    let game = gameinit();
-
-    // setting up constant test environment state
-    game.state.cards = [];
-    game.state.cards.push(deck.pop());
-    game.state.cards.push(deck.pop());
-    game.state.deck = deck;
-    game.state.dealer.shuffle = (deck) => {};
-
-    // Assert
-    expect(game.getCardValue(game)).toEqual(10);
+        expect(game.getCard(game)).toBe(game.state.card);
+    });
 });
 
-test('Game state should return card 10 since the cards sum is 12 because a card 10 will exceed 21', () => {
-    // Arrange
-    let deck = [ '02C', '05D', '04S', '08H' ];
+describe('game - guess21OrUnder', () => {
+    test('should draw the next card', () => {
+        const game = newGame(['01C', '01H', '12H', '09H']);
 
-    let game = gameinit();
+        game.guess21OrUnder(game);
 
-    // setting up constant test environment state
-    game.state.cards = [];
-    game.state.cards.push(deck.pop());
-    game.state.cards.push(deck.pop());
-    game.state.deck = deck;
-    game.state.dealer.shuffle = (deck) => {};
+        expect(game.state.deck.length).toEqual(1);
+    });
 
-    // Assert
-    expect(game.getCardValue(game)).toEqual(10);
+    test('should add next card value to cards', () => {
+        const game = newGame(['01C', '01H', '12H', '09H']);
+
+        game.guess21OrUnder(game);
+
+        expect(game.getCards(game)).toEqual(['09H', '12H', '01H']);
+    });
 });
 
+describe('game - guessOver21', () => {
+    test('should draw the next card', () => {
+        const game = newGame(['01C', '01H', '12H', '09H']);
 
-test('Gets hand total of 12', () => {
-    // Arrange
-    let deck = [ '02C', '05D', '04S', '08H' ];
+        game.guessOver21(game);
 
-    let game = gameinit();
+        expect(game.state.deck.length).toEqual(1);
+    });
 
-    // setting up constant test environment state
-    game.state.cards = [];
-    game.state.cards.push(deck.pop());
-    game.state.cards.push(deck.pop());
-    game.state.deck = deck;
-    game.state.dealer.shuffle = (deck) => {};
+    test('should set the card value', () => {
+        const game = newGame(['01C', '01H', '12H', '09H']);
 
-    // Assert
-    expect(game.getTotal(game)).toEqual(12);
-});
+        game.guessOver21(game);
 
-test('Gets hand total of 17 after one guess', () => {
-    // Arrange
-    let deck = [ '02C', '05D', '04S', '08H' ];
-
-    let game = gameinit();
-
-    // setting up constant test environment state
-    game.state.cards = [];
-    game.state.cards.push(deck.pop());
-    game.state.cards.push(deck.pop());
-    game.state.deck = deck;
-    game.state.dealer.shuffle = (deck) => {};
-
-    // Act
-    game.guess21OrUnder(game);
-
-    // Assert
-    expect(game.getTotal(game)).toEqual(17);
-});
-
-test('Gets players cards', () => {
-    // Arrange
-    let deck = [ '02C', '05D', '04S', '08H' ];
-
-    let game = gameinit();
-
-    // setting up constant test environment state
-    game.state.cards = [];
-    game.state.cards.push(deck.pop());
-    game.state.cards.push(deck.pop());
-    game.state.deck = deck;
-    game.state.dealer.shuffle = (deck) => {};
-
-    // Assert
-    expect(game.state.cards.length).toEqual(2);
-    expect(game.getCards(game)).toEqual(['08H', '04S']);
-});
-
-test('Gets players cards after one guess', () => {
-    // Arrange
-    let deck = [ '02C', '05D', '04S', '08H' ];
-
-    let game = gameinit();
-
-    // setting up constant test environment state
-    game.state.cards = [];
-    game.state.cards.push(deck.pop());
-    game.state.cards.push(deck.pop());
-    game.state.deck = deck;
-    game.state.dealer.shuffle = (deck) => {};
-
-    // Act
-    game.guess21OrUnder(game);
-
-    // Assert
-    expect(game.state.cards.length).toEqual(3);
-    expect(game.getCards(game)).toEqual(['08H', '04S', '05D']);
-});
-
-test('Gets players cards after  one guess', () => {
-    // Arrange
-    let deck = [ '02C', '05D', '04S', '08H' ];
-
-    let game = gameinit();
-
-    // setting up constant test environment state
-    game.state.cards = [];
-    game.state.cards.push(deck.pop());
-    game.state.cards.push(deck.pop());
-    game.state.deck = deck;
-    game.state.dealer.shuffle = (deck) => {};
-
-    // Act
-    game.guess21OrUnder(game);
-
-    // Assert
-    expect(game.state.cards.length).toEqual(3);
-    expect(game.getCards(game)).toEqual(['08H', '04S', '05D']);
-});
-
-test('Getting a card should be undefined since the user has not guessed', () => {
-    // Arrange
-    let deck = [ '02C', '05D', '04S', '08H' ];
-
-    let game = gameinit();
-
-    // setting up constant test environment state
-    game.state.cards = [];
-    game.state.cards.push(deck.pop());
-    game.state.cards.push(deck.pop());
-    game.state.deck = deck;
-    game.state.dealer.shuffle = (deck) => {};
-
-    // Assert
-    expect(game.getCard(game)).toBeUndefined();
-});
-
-test('Getting a card after a choice should be 05D and defined', () => {
-    // Arrange
-    let deck = [ '02C', '05D', '04S', '08H' ];
-
-    let game = gameinit();
-
-    // setting up constant test environment state
-    game.state.cards = [];
-    game.state.cards.push(deck.pop());
-    game.state.cards.push(deck.pop());
-    game.state.deck = deck;
-    game.state.dealer.shuffle = (deck) => {};
-
-    // Action
-    game.guess21OrUnder(game);
-
-    // Assert
-    expect(game.getCard(game)).toBeDefined();
-    expect(game.getCard(game)).toEqual('05D');
-});
-
-test('Should add a card to hand when guessing over', () => {
-    // Arrange
-    let deck = [ '02C', '05D', '04S', '08H' ];
-
-    let game = gameinit();
-
-    // setting up constant test environment state
-    game.state.cards = [];
-    game.state.cards.push(deck.pop());
-    game.state.cards.push(deck.pop());
-    game.state.deck = deck;
-    game.state.dealer.shuffle = (deck) => {};
-
-    // Action
-    game.guessOver21(game);
-
-    // Assert
-    expect(game.state.cards.length).toEqual(3);
-    expect(game.state.cards[2]).toEqual('05D');
-    expect(game.state.card).toEqual('05D');
-});
-
-test('Should loose since the hand did not exceed 21 but quessed to go over', () => {
-    // Arrange
-    let deck = [ '02C', '05D', '04S', '08H' ];
-
-    let game = gameinit();
-
-    // setting up constant test environment state
-    game.state.cards = [];
-    game.state.cards.push(deck.pop());
-    game.state.cards.push(deck.pop());
-    game.state.deck = deck;
-    game.state.dealer.shuffle = (deck) => {};
-
-    // Action
-    game.guessOver21(game);
-
-    // Assert
-    expect(game.playerWon(game)).toBeFalsy();
-});
-
-test('Should win since the hand exceeds 21 and guessed right', () => {
-    // Arrange
-    let deck = [ '02C', '05D', '10S', '08H' ];
-
-    let game = gameinit();
-
-    // setting up constant test environment state
-    game.state.cards = [];
-    game.state.cards.push(deck.pop());
-    game.state.cards.push(deck.pop());
-    game.state.deck = deck;
-    game.state.dealer.shuffle = (deck) => {};
-
-    // Action
-    game.guessOver21(game);
-
-    // Assert
-    expect(game.playerWon(game)).toBeTruthy();
+        expect(game.getCard(game)).toEqual('01H');
+    });
 });

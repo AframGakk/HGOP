@@ -10,3 +10,4 @@ game-api/package-lock.json
 SSH_jenkins.sh
 scripts/sync_session.sh
 game-api/coverage
+game-client/package-lock.json

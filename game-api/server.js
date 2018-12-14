@@ -5,8 +5,8 @@ module.exports = function(context) {
     const configConstructor = context('config');
     const config = configConstructor(context);
     const lucky21Constructor = context("lucky21");
-    var StatsD = require('hot-shots'),
-        client = new StatsD();
+    var StatsD = require('hot-shots');
+    var client = new StatsD();
 
     let app = express();
 

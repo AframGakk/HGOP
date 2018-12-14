@@ -27,3 +27,13 @@ services:
         - /var/run/docker.sock:/var/run/docker.sock
         - /proc/:/host/proc/:ro
         - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
+  my_game_client:
+    image: villirn/hgopui:${GIT_COMMIT}
+    ports:
+    - '4000:4000'
+    depends_on:
+    - my_item_repository
+    environment:
+      PORT: 4000
+      API_PORT: 3000
+      API_URL: ${API_URL}

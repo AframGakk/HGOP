@@ -56,7 +56,8 @@ module.exports = function(context) {
             res.statusCode = 409;
             res.send('There is already a game in progress');
         } else {
-            client.increment('games.started', 1);
+            client.increment('games.started');
+            client.increment('games.running');
             game = lucky21Constructor(context);
             const msg = 'Game started';
             res.statusCode = 201;
@@ -76,7 +77,7 @@ module.exports = function(context) {
         }
     });
 
-    // Player makes a guess that the next card will be 21 or under..
+    // Player makes a guess that the next card will be 21 or under...
     app.post('/guess21OrUnder', (req, res) => {
         if (game) {
             if (game.isGameOver(game)) {
@@ -86,6 +87,7 @@ module.exports = function(context) {
             } else {
                 game.guess21OrUnder(game);
                 if (game.isGameOver(game)) {
+                    client.decrement('games.running');
                     const won = game.playerWon(game);
                     const score = game.getCardsValue(game);
                     const total = game.getTotal(game);

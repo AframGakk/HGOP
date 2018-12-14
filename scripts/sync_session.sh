@@ -1,6 +1,6 @@
 #!/bin/bash
 
-JENKINS_URL=52.91.141.183
+JENKINS_URL=ec2-52-23-255-13.compute-1.amazonaws.com
 
 scp -o StrictHostKeyChecking=no -i "~/.aws/JenkinsKeyPair.pem" ~/.aws/credentials ubuntu@${JENKINS_URL}:~/credentials
 scp -o StrictHostKeyChecking=no -i "~/.aws/JenkinsKeyPair.pem" ~/.aws/GameKeyPair.pem ubuntu@${JENKINS_URL}:~/GameKeyPair.pem
@@ -11,4 +11,3 @@ ssh -o StrictHostKeyChecking=no -i "~/.aws/JenkinsKeyPair.pem" ubuntu@${JENKINS_
 ssh -o StrictHostKeyChecking=no -i "~/.aws/JenkinsKeyPair.pem" ubuntu@${JENKINS_URL} "sudo chmod a+r /var/lib/jenkins/.aws/credentials"
 ssh -o StrictHostKeyChecking=no -i "~/.aws/JenkinsKeyPair.pem" ubuntu@${JENKINS_URL} "sudo chown -R jenkins:jenkins /var/lib/jenkins/.aws/credentials"
 ssh -o StrictHostKeyChecking=no -i "~/.aws/JenkinsKeyPair.pem" ubuntu@${JENKINS_URL} "sudo chown -R jenkins:jenkins /var/lib/jenkins/.aws/GameKeyPair.pem"
-

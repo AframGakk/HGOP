@@ -56,7 +56,7 @@ module.exports = function(context) {
             res.statusCode = 409;
             res.send('There is already a game in progress');
         } else {
-            client.increment('games.started', 1);
+            client.increment('games.started');
             game = lucky21Constructor(context);
             const msg = 'Game started';
             res.statusCode = 201;

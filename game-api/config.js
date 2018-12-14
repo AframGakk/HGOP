@@ -3,9 +3,8 @@ module.exports = function(context) {
         // Postgres
         pgHost: process.env.POSTGRES_HOST || 'localhost',
         pgUser: process.env.POSTGRES_USER || 'game',
-        pgPassword: process.env.POSTGRES_PASSWORD || '12345',
         pgDatabase: process.env.POSTGRES_DB || 'game_database',
-
+        pgPassword: process.env.POSTGRES_PASSWORD || '12345',
         // Port
         port: process.env.PORT || 3000,
     };

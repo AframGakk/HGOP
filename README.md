@@ -51,6 +51,6 @@ All our unit-test are in a dedicated test folder /game_api/test
 
 ## DataDogBashboard  
 Hrafn is part of our DataDog team.  
-<img src="DataDogBashboard.jpg" width="300" height="300"></img>
+<img src="resources/img/DataDogBashboard.jpg" width="300" height="300"></img>
 
 

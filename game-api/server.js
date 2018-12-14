@@ -4,7 +4,9 @@ module.exports = function(context) {
     const database = databaseConstructor(context);
     const configConstructor = context('config');
     const config = configConstructor(context);
-    const lucky21Constructor = context("lucky21")
+    const lucky21Constructor = context("lucky21");
+    var StatsD = require('hot-shots'),
+        client = new StatsD();
 
     let app = express();
 
@@ -54,6 +56,7 @@ module.exports = function(context) {
             res.statusCode = 409;
             res.send('There is already a game in progress');
         } else {
+            client.increment('games.started', 1);
             game = lucky21Constructor(context);
             const msg = 'Game started';
             res.statusCode = 201;

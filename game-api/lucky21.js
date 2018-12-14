@@ -73,6 +73,7 @@ module.exports = (context) => {
                 cardValue: game.getCardValue(game),
                 total: game.getTotal(game),
                 gameOver: game.isGameOver(game),
+                playerWon: game.playerWon(game),
             };
         },
     };
